@@ -10,10 +10,6 @@ server:
       min-spare: 100
 
 spring:
-  session:
-    store-type: redis
-    redis:
-      namespace: "spring:session"
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
@@ -52,10 +48,6 @@ spring:
         batch_versioned_data: true
         dialect: org.hibernate.dialect.MySQLDialect
         default_batch_fetch_size: 100
-  data:
-    redis:
-      host: ${REDIS_HOST}
-      port: ${VELKEY_PORT}
   flyway:
     enabled: false
     baseline-on-migrate: false

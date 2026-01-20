@@ -26,15 +26,6 @@ services:
       retries: 5
       start_period: 30s
 
-  velkey:
-    image: ghcr.io/valkey-io/valkey:7.2
-    container_name: bread-feet-velkey
-    command: [ "valkey-server", "--port", "6379" ]
-    ports:
-      - "6379:6379"
-    networks:
-      - bread-feet-bridge
-
 volumes:
   bread-feet-database:
 
