@@ -57,6 +57,13 @@ spring:
   devtools:
     restart:
       enabled: false
+  oauth2:
+    kakao:
+      client-id: ${KAKAO_REST_API_KEY}
+      client-secret: ${KAKAO_CLIENT_ID}
+      redirect-uri: ${KAKAO_REDIRECT_URI}
+    frontend:
+      base-uri: ${FRONT_BASE_URI}
 
 management:
   endpoints:
