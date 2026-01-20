@@ -1,0 +1,43 @@
+services:
+  database:
+    image: mysql:8.4.0
+    container_name: bread-feet-database
+    environment:
+      MYSQL_ROOT_PASSWORD: abcd1234
+      MYSQL_DATABASE: sa
+      MYSQL_USER: sa
+      MYSQL_PASSWORD: abcd1234
+    command:
+      --port=3306
+      --max_allowed_packet=32M
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
+    restart: "always"
+    volumes:
+      - bread-feet-database:/var/lib/mysql
+    networks:
+      - bread-feet-bridge
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pabcd1234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  velkey:
+    image: ghcr.io/valkey-io/valkey:7.2
+    container_name: bread-feet-velkey
+    command: [ "valkey-server", "--port", "6379" ]
+    ports:
+      - "6379:6379"
+    networks:
+      - bread-feet-bridge
+
+volumes:
+  bread-feet-database:
+
+networks:
+  bread-feet-bridge:
+    driver: bridge
