@@ -1,6 +1,5 @@
 package kr.co.breadfeetserver.domain.bakery;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AccessLevel;
@@ -18,11 +17,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AddressJpaVO {
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "detail")
+    private String detail;
 
-    @Column(name = "district")
-    private String district;
+    @Column(name = "lot_number")
+    private String lotNumber;
 
     @Column(name = "road_address")
     private String roadAddress;

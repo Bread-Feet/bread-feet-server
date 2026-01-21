@@ -50,4 +50,22 @@ public class Bakery extends BaseTimeEntity {
 
     @Column(name = "member_id")
     private Long memberId;
+
+    public void updateBakery(
+            String name,
+            AddressJpaVO address,
+            String phoneNumber,
+            String businessHours,
+            String bestBread,
+            Double xCoordinate,
+            Double yCoordinate
+    ) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.businessHours = businessHours;
+        this.bestBread = bestBread;
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+    }
 }
