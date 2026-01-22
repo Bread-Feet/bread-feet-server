@@ -5,7 +5,7 @@ import kr.co.breadfeetserver.global.annotation.IsEssential;
 import kr.co.breadfeetserver.global.annotation.PhoneNumberPattern;
 
 public record BakeryUpdateRequest(
-        long bakeryId,
+        @IsEssential long bakeryId,
         @IsEssential String name,
         AddressUpdateRequest address,
         @PhoneNumberPattern String phoneNumber,
