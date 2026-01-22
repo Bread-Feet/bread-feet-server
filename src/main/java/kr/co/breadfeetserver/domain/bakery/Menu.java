@@ -1,9 +1,7 @@
-package kr.co.breadfeetserver.domain.member;
+package kr.co.breadfeetserver.domain.bakery;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,33 +9,27 @@ import jakarta.persistence.Table;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Builder
-@Table(name = "member")
+@Table(name = "menu")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Member extends BaseTimeEntity {
+public class Menu extends BaseTimeEntity {
 
     @Id
-    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "menu_id")
     private Long id;
 
-    @Column(name = "name")
-    private String nickname;
+    @Column(nullable = false)
+    private String name;
 
-    @Column(name = "location", unique = true)
-    private String location;
+    @Column(nullable = false)
+    private Integer price;
 
-    @Column(name = "email", unique = true)
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private MemberRole role;
+    @Column(name = "bakery_id", nullable = false)
+    private Long bakeryId;
 }
