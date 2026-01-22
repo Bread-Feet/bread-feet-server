@@ -1,8 +1,8 @@
 package kr.co.breadfeetserver.fixture;
 
 import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
-import kr.co.breadfeetserver.presentation.bakery.dto.AddressCreateRequest;
-import kr.co.breadfeetserver.presentation.bakery.dto.AddressUpdateRequest;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.AddressCreateRequest;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.AddressUpdateRequest;
 
 public class AddressFixture {
 

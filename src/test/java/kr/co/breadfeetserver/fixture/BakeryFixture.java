@@ -3,8 +3,8 @@ package kr.co.breadfeetserver.fixture;
 import static kr.co.breadfeetserver.fixture.AddressFixture.address;
 
 import kr.co.breadfeetserver.domain.bakery.Bakery;
-import kr.co.breadfeetserver.presentation.bakery.dto.BakeryCreateRequest;
-import kr.co.breadfeetserver.presentation.bakery.dto.BakeryUpdateRequest;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCreateRequest;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryUpdateRequest;
 
 public class BakeryFixture {
 

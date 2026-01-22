@@ -1,11 +1,13 @@
-package kr.co.breadfeetserver.presentation.bakery.dto;
+package kr.co.breadfeetserver.presentation.bakery.dto.request;
 
 import kr.co.breadfeetserver.domain.bakery.Bakery;
+import kr.co.breadfeetserver.global.annotation.IsEssential;
+import kr.co.breadfeetserver.global.annotation.PhoneNumberPattern;
 
 public record BakeryCreateRequest(
-        String name,
+        @IsEssential String name,
         AddressCreateRequest address,
-        String phoneNumber,
+        @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
         Double xCoordinate,

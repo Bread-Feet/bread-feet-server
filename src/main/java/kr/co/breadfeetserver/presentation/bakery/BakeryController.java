@@ -2,8 +2,8 @@ package kr.co.breadfeetserver.presentation.bakery;
 
 import kr.co.breadfeetserver.application.bakery.BakeryService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
-import kr.co.breadfeetserver.presentation.bakery.dto.BakeryCreateRequest;
-import kr.co.breadfeetserver.presentation.bakery.dto.BakeryUpdateRequest;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCreateRequest;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
