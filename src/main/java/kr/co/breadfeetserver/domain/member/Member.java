@@ -28,10 +28,10 @@ public class Member extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "location", unique = true)
+    @Column(name = "location")
     private String location;
 
     @Column(name = "email", unique = true)
@@ -40,4 +40,13 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private MemberRole role;
+
+    @Column(unique = true)
+    private Long kakaoId;
+
+    public Member(String nickname, Long kakaoId, String email) {
+        this.nickname = nickname;
+        this.kakaoId = kakaoId;
+        this.email = email;
+    }
 }
