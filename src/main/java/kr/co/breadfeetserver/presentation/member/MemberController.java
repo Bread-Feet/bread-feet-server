@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.co.breadfeetserver.application.oauth.KakaoService;
 import kr.co.breadfeetserver.domain.member.Member;
 import kr.co.breadfeetserver.domain.member.MemberJpaRepository;
+import kr.co.breadfeetserver.domain.member.MemberRole;
 import kr.co.breadfeetserver.infra.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,6 @@ public class MemberController {
 
         Long kakaoId = (Long) userInfo.get("id");
         String nickname = (String) userInfo.get("nickname");
-        String email = (String) userInfo.get("email");
 
         // 3. DB 조회 및 저장 (빌더 패턴 사용)
         Member member = memberRepository.findByKakaoId(kakaoId)
@@ -42,8 +42,8 @@ public class MemberController {
                     Member newMember = Member.builder()
                             .kakaoId(kakaoId)
                             .nickname(nickname)
-                            .email(email)
-                            // role은 Default 값으로 자동 설정
+                            .email(" ")
+                            .role(MemberRole.USER)
                             .build();
                     return memberRepository.save(newMember);
                 });

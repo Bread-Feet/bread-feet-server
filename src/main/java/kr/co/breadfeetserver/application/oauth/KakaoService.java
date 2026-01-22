@@ -3,6 +3,7 @@ package kr.co.breadfeetserver.application.oauth;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 
 @Service
+@Slf4j
 public class KakaoService {
 
     @Value("${spring.oauth2.kakao.client-id}")
@@ -23,6 +25,9 @@ public class KakaoService {
 
     @Value("${spring.oauth2.kakao.redirect-uri}")
     private String redirectUri;
+
+    @Value("${spring.oauth2.kakao.client-secret}")
+    private String clientSecret;
 
     // 1. 인가 코드를 받아서 '액세스 토큰'을 받아오는 메서드
     public String getAccessToken(String code) {
@@ -36,6 +41,7 @@ public class KakaoService {
         body.add("client_id", clientId);
         body.add("redirect_uri", redirectUri);
         body.add("code", code);
+        body.add("client_secret", clientSecret);
 
         // Header + Body 합치기
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
@@ -49,6 +55,8 @@ public class KakaoService {
                 String.class
         );
 
+        log.info("카카오 API 응답 상태: {}", response.getStatusCode());
+        log.info("카카오 API 응답 바디: {}", response.getBody());
         // 응답(JSON)에서 accessToken만 꺼내기
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -78,17 +86,18 @@ public class KakaoService {
                 String.class
         );
 
+
+        log.info("카카오 API 응답 상태: {}", response.getStatusCode());
+        log.info("카카오 API 응답 바디: {}", response.getBody());
         // 응답(JSON) 파싱해서 필요한 정보(닉네임, 이메일 등) 꺼내기
         HashMap<String, Object> userInfo = new HashMap<>();
         try {
             String responseBody = response.getBody();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseBody);
-
+            //TODO: 나중에 추가하기 (이메일 등 등.. 카카오) String email = jsonNode.get("kakao_account").get("email").asText();
             Long id = jsonNode.get("id").asLong();
             String nickname = jsonNode.get("properties").get("nickname").asText();
-            // 이메일은 사용자가 동의 안 했을 수도 있으므로 null 체크 필요
-            // String email = jsonNode.get("kakao_account").get("email").asText();
 
             userInfo.put("id", id);
             userInfo.put("nickname", nickname);
