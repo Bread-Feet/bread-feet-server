@@ -53,7 +53,7 @@ public class BakeryController {
         bakeryService.deleteBakery(memberId, bakeryId);
 
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .body(ApiResponseWrapper.success(HttpStatus.NO_CONTENT, "빵집 삭제 성공"));
+                .status(HttpStatus.OK)
+                .body(ApiResponseWrapper.success(HttpStatus.OK, "빵집 삭제 성공"));
     }
 }
