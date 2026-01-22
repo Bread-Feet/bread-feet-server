@@ -1,6 +1,9 @@
 package kr.co.breadfeetserver.infra.config;
 
+import jakarta.annotation.PostConstruct;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,8 +14,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class CorsConfig {
 
+    private static final Logger log = LoggerFactory.getLogger(CorsConfig.class);
+
     @Value("${spring.oauth2.frontend.base-uri}")
     private String frontendBaseUrl;
+
+    @PostConstruct
+    public void init() {
+        log.info("CORS frontendBaseUrl loaded with value: '{}'", frontendBaseUrl);
+    }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
