@@ -7,6 +7,7 @@ import kr.co.breadfeetserver.global.annotation.PhoneNumberPattern;
 public record BakeryCreateRequest(
         @IsEssential String name,
         AddressCreateRequest address,
+        String imageUrl,
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
@@ -18,6 +19,7 @@ public record BakeryCreateRequest(
         return Bakery.builder()
                 .name(name)
                 .address(address.toEntity())
+                .imageUrl(imageUrl)
                 .phoneNumber(phoneNumber)
                 .businessHours(businessHours)
                 .bestBread(bestBread)

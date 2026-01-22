@@ -33,6 +33,9 @@ public class Bakery extends BaseTimeEntity {
     @Embedded
     private AddressJpaVO address;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -54,6 +57,7 @@ public class Bakery extends BaseTimeEntity {
     public void updateBakery(
             String name,
             AddressJpaVO address,
+            String imageUrl,
             String phoneNumber,
             String businessHours,
             String bestBread,
@@ -62,6 +66,7 @@ public class Bakery extends BaseTimeEntity {
     ) {
         this.name = name;
         this.address = address;
+        this.imageUrl = imageUrl;
         this.phoneNumber = phoneNumber;
         this.businessHours = businessHours;
         this.bestBread = bestBread;
