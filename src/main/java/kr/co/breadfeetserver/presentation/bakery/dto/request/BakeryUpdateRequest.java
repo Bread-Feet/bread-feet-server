@@ -8,6 +8,7 @@ public record BakeryUpdateRequest(
         @IsEssential long bakeryId,
         @IsEssential String name,
         AddressUpdateRequest address,
+        String imageUrl,
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,

@@ -47,6 +47,7 @@ public class BakeryService {
         bakery.updateBakery(
                 request.name(),
                 request.address().toEntity(),
+                request.imageUrl(),
                 request.phoneNumber(),
                 request.businessHours(),
                 request.bestBread(),
