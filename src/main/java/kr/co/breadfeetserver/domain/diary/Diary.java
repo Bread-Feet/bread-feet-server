@@ -8,8 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
-import kr.co.breadfeetserver.domain.bakery.Bakery;
-import kr.co.breadfeetserver.domain.member.Member;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
