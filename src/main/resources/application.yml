@@ -95,3 +95,7 @@ springdoc:
 sentry:
   dsn: ${SENTRY_DSN}
   send-default-pii: true
+
+jwt:
+  secret-key: ${JWT_SECRET}
+  expiration-time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
