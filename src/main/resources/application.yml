@@ -76,18 +76,6 @@ logging:
   file:
     name: ${LOG_FILE_PATH:./logs/app.log}
 
-storage:
-  provider: ${STORAGE_PROVIDER:local}
-  local:
-    base-path: ${STORAGE_LOCAL_BASE_PATH:./uploads}
-    serve-url: ${STORAGE_LOCAL_SERVE_URL:http://localhost:30000/files}
-  s3:
-    bucket: ${STORAGE_S3_BUCKET:}
-    region: ${STORAGE_S3_REGION:ap-northeast-2}
-    cdn-url: ${STORAGE_S3_CDN_URL:}
-    access-key: ${STORAGE_S3_ACCESS_KEY:}
-    secret-key: ${STORAGE_S3_SECRET_KEY:}
-
 springdoc:
   packages-to-scan: kr.co.breadfeetserver
   default-consumes-media-type: application/json;charset=UTF-8
@@ -103,3 +91,7 @@ springdoc:
     path: /swagger
     tags-sorter: alpha
     operations-sorter: alpha
+
+sentry:
+  dsn: ${SENTRY_DSN}
+  send-default-pii: true
