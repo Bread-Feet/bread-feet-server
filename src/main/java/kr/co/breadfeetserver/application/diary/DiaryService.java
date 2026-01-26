@@ -31,7 +31,7 @@ public class DiaryService {
         diaryUpdateRequestToEntity(diary, request);
     }
 
-    public void deleteBakery(long memberId, Long diaryId){
+    public void deleteDiary(long memberId, Long diaryId){
         Diary diary = diaryJpaRepository.findById(diaryId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 

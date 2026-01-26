@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record DiaryCreateRequest(
-        @IsEssential String name,
         @IsEssential Boolean isPublic,
         @IsEssential Integer score,
         @IsEssential AddressJpaVO address,

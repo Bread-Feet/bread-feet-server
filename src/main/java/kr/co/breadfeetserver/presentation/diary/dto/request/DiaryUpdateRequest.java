@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record DiaryUpdateRequest(
+        @IsEssential long diaryId,
         @IsEssential Boolean isPublic,
         @IsEssential Integer score,
         @IsEssential AddressUpdateRequest address,

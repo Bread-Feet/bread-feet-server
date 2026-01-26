@@ -43,7 +43,7 @@ public class DiaryController {
     public ResponseEntity<ApiResponseWrapper<Void>> deleteDiary(
             @RequestParam long memberId,
             @PathVariable Long diaryId) {
-        diaryService.deleteBakery(memberId, diaryId);
+        diaryService.deleteDiary(memberId, diaryId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
