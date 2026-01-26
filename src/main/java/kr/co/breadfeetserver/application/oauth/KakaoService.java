@@ -55,8 +55,8 @@ public class KakaoService {
                 String.class
         );
 
-        log.info("카카오 API 응답 상태: {}", response.getStatusCode());
-        log.info("카카오 API 응답 바디: {}", response.getBody());
+        log.debug("카카오 API 응답 상태: {}", response.getStatusCode());
+        log.debug("카카오 API 응답 바디: {}", response.getBody());
         // 응답(JSON)에서 accessToken만 꺼내기
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -87,8 +87,8 @@ public class KakaoService {
         );
 
 
-        log.info("카카오 API 응답 상태: {}", response.getStatusCode());
-        log.info("카카오 API 응답 바디: {}", response.getBody());
+        log.debug("카카오 API 응답 상태: {}", response.getStatusCode());
+        log.debug("카카오 API 응답 바디: {}", response.getBody());
         // 응답(JSON) 파싱해서 필요한 정보(닉네임, 이메일 등) 꺼내기
         HashMap<String, Object> userInfo = new HashMap<>();
         try {
