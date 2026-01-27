@@ -7,6 +7,7 @@ import kr.co.breadfeetserver.domain.member.MemberJpaRepository;
 import kr.co.breadfeetserver.domain.member.MemberRole;
 import kr.co.breadfeetserver.infra.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,19 @@ public class OauthController {
     private final KakaoService kakaoService;
     private final MemberJpaRepository memberRepository;
     private final JwtUtil jwtUtil;
+
+    @Value("${spring.oauth2.kakao.client-id}")
+    private String kakaoClientId;
+    @Value("${spring.oauth2.kakao.redirect-uri}")
+    private String kakaoRedirectUri;
+
+    @GetMapping("/oauth/kakao/login")
+    public String kakaoLogin() {
+        String authUrl =
+                "https://kauth.kakao.com/oauth/authorize?client_id=" + kakaoClientId + "&redirect_uri="
+                        + kakaoRedirectUri + "&response_type=code";
+        return "redirect:" + authUrl;
+    }
 
     @GetMapping("/login/oauth2/code/kakao")
     public void kakaoLogin(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
