@@ -7,6 +7,7 @@ import kr.co.breadfeetserver.domain.member.MemberJpaRepository;
 import kr.co.breadfeetserver.domain.member.MemberRole;
 import kr.co.breadfeetserver.infra.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,19 @@ public class OauthController {
     private final MemberJpaRepository memberRepository;
     private final JwtUtil jwtUtil;
 
-    // [중요] 카카오 개발자 센터의 'Redirect URI'와 이 주소가 토씨 하나 안 틀리고 똑같아야 합니다!
-    // 보통 표준인 '/login/oauth2/code/kakao'를 많이 씁니다.
+    @Value("${spring.oauth2.kakao.client-id}")
+    private String kakaoClientId;
+    @Value("${spring.oauth2.kakao.redirect-uri}")
+    private String kakaoRedirectUri;
+
+    @GetMapping("/oauth/kakao/login")
+    public String kakaoLogin() {
+        String authUrl =
+                "https://kauth.kakao.com/oauth/authorize?client_id=" + kakaoClientId + "&redirect_uri="
+                        + kakaoRedirectUri + "&response_type=code";
+        return "redirect:" + authUrl;
+    }
+
     @GetMapping("/login/oauth2/code/kakao")
     public void kakaoLogin(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
 
@@ -48,12 +60,7 @@ public class OauthController {
                     return memberRepository.save(newMember);
                 });
 
-        // 4. JWT 토큰 발급
         String jwtToken = jwtUtil.createToken(member.getId(), member.getNickname());
-
-        // 5. 프론트엔드로 리다이렉트
-        // 프론트엔드 개발자와 맞춘 주소로 보내주세요.
-        // 예: http://localhost:3000/oauth/callback?token=...
         response.sendRedirect("http://localhost:3000/oauth/callback?token=" + jwtToken);
     }
 }

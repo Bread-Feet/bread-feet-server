@@ -1,7 +1,6 @@
 package kr.co.breadfeetserver.infra.config;
 
 import jakarta.annotation.PostConstruct;
-
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
@@ -18,20 +17,23 @@ public class CorsConfig {
 
     private static final Logger log = LoggerFactory.getLogger(CorsConfig.class);
 
-    @Value("${spring.oauth2.frontend.base-uri}")
-    private String frontendBaseUrl;
+    @Value("${cors.uri}")
+    private String corsUri;
 
     @PostConstruct
     public void init() {
-        log.info("CORS frontendBaseUrl loaded with value: '{}'", frontendBaseUrl);
+        log.debug("CORS frontendBaseUrl loaded with value: '{}'", corsUri);
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of(frontendBaseUrl));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedOrigins(
+                Arrays.asList(corsUri.split(","))
+        );
+        configuration.setAllowedMethods(
+                List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);

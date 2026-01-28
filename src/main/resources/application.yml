@@ -62,8 +62,9 @@ spring:
       client-id: ${KAKAO_REST_API_KEY}
       client-secret: ${KAKAO_CLIENT_SECRET}
       redirect-uri: ${KAKAO_REDIRECT_URI}
-    frontend:
-      base-uri: ${FRONT_BASE_URI}
+
+cors:
+  uri: ${CORS_URI}
 
 management:
   endpoints:
@@ -91,10 +92,6 @@ springdoc:
     path: /swagger
     tags-sorter: alpha
     operations-sorter: alpha
-
-sentry:
-  dsn: ${SENTRY_DSN}
-  send-default-pii: true
 
 jwt:
   secret-key: ${JWT_SECRET}
