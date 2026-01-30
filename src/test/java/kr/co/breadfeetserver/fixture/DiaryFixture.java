@@ -5,6 +5,7 @@ import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static kr.co.breadfeetserver.fixture.AddressFixture.address;
 import static kr.co.breadfeetserver.fixture.AddressFixture.addressCreateRequest;
@@ -30,14 +31,16 @@ public class DiaryFixture {
                 .build();
     }
 
-    public static DiaryCreateRequest aDiaryCreateRequest() {
+    public static DiaryCreateRequest aDiaryCreateRequest(List<String> hashtags, List<String> pictureUrls) {
         return new DiaryCreateRequest(
                 isPublic,
                 score,
                 address(),
                 thumbnailUrl,
                 visitDate,
-                content
+                content,
+                hashtags,
+                pictureUrls
         );
     }
 
