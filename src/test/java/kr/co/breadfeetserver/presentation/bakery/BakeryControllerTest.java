@@ -100,7 +100,7 @@ class BakeryControllerTest {
         // When & Then
         mockMvc.perform(delete("/api/v1/bakeries/{id}", bakeryId)
                         .param("memberId", String.valueOf(memberId)))
-                .andExpect(status().isNoContent())
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 }
