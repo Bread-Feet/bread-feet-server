@@ -51,8 +51,8 @@ public class KakaoService {
                 String.class
         );
 
-        log.info("카카오 API 응답 상태: {}", response.getStatusCode());
-        log.info("카카오 API 응답 바디: {}", response.getBody());
+        log.debug("카카오 API 응답 상태: {}", response.getStatusCode());
+        log.debug("카카오 API 응답 바디: {}", response.getBody());
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = null;

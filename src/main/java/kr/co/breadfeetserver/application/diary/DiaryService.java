@@ -18,21 +18,21 @@ public class DiaryService {
     private final DiaryJpaRepository diaryJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-    public Long createDiary(Long memberId, DiaryCreateRequest request) {
+    public Long createDiary(Long memberId, DiaryCrxeateRequest request) {
         memberJpaRepository.findById(memberId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.USER_NOT_FOUND));
         return diaryJpaRepository.save(request.toEntity(memberId)).getId();
     }
 
     public void updateDiary(long memberId, Long diaryId, DiaryUpdateRequest request) {
-        Diary diary = diaryJpaRepository.findById(diaryId).orElseThrow(
-                () -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
+        Diary diary = diaryJpaRepository.findByIdAndMemberId(diaryId, memberId)
+                .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
         diaryUpdateRequestToEntity(diary, request);
     }
 
     public void deleteDiary(long memberId, Long diaryId){
-        Diary diary = diaryJpaRepository.findById(diaryId)
+        Diary diary = diaryJpaRepository.findByIdAndMemberId(diaryId, memberId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
         diaryJpaRepository.delete(diary);
