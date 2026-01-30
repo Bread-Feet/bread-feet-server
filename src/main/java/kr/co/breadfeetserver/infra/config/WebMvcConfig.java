@@ -15,7 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
                 .allowedHeaders("*")
                 .allowedOrigins(
-                        "http://localhost:8081",
+                        "http://localhost:8080",
                         "http://api.keephun.kro.kr"
                 )
                 .allowCredentials(true)

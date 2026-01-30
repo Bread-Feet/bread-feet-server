@@ -31,11 +31,9 @@ public class KakaoService {
 
     // 1. 인가 코드를 받아서 '액세스 토큰'을 받아오는 메서드
     public String getAccessToken(String code) {
-        // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        // HTTP Body 생성
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", clientId);
@@ -43,10 +41,8 @@ public class KakaoService {
         body.add("code", code);
         body.add("client_secret", clientSecret);
 
-        // Header + Body 합치기
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
 
-        // 카카오에게 POST 요청 쏘기
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
                 "https://kauth.kakao.com/oauth/token",
@@ -55,9 +51,8 @@ public class KakaoService {
                 String.class
         );
 
-        log.debug("카카오 API 응답 상태: {}", response.getStatusCode());
-        log.debug("카카오 API 응답 바디: {}", response.getBody());
-        // 응답(JSON)에서 accessToken만 꺼내기
+        log.info("카카오 API 응답 상태: {}", response.getStatusCode());
+        log.info("카카오 API 응답 바디: {}", response.getBody());
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = null;
