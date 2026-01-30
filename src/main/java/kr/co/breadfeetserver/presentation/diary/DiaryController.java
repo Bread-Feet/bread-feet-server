@@ -2,6 +2,7 @@ package kr.co.breadfeetserver.presentation.diary;
 
 import kr.co.breadfeetserver.application.diary.DiaryQuaryService;
 import kr.co.breadfeetserver.application.diary.DiaryService;
+import kr.co.breadfeetserver.global.annotation.Memberid;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryUpdateRequest;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
@@ -22,7 +23,7 @@ public class DiaryController {
 
     @PostMapping
     public ResponseEntity<ApiResponseWrapper<Long>> createDiary(
-            @RequestParam long memberId,
+            @Memberid Long memberId,
             @RequestBody DiaryCreateRequest request) {
         Long diaryId = diaryService.createDiary(memberId, request);
 
@@ -33,7 +34,7 @@ public class DiaryController {
 
     @PutMapping("/{diaryId}")
     public ResponseEntity<ApiResponseWrapper<Void>> updateDiary(
-            @RequestParam long memberId,
+            @Memberid Long memberId,
             @PathVariable Long diaryId,
             @RequestBody DiaryUpdateRequest request) {
         diaryService.updateDiary(memberId, diaryId, request);
@@ -46,7 +47,7 @@ public class DiaryController {
     @GetMapping("/{diaryId}")
     public ResponseEntity<ApiResponseWrapper<DiaryResponse>> getDiary(
             @PathVariable Long diaryId,
-            @RequestParam long memberId) {
+            @Memberid(required = false) Long memberId) {
         DiaryResponse response = diaryQueryService.getDiary(diaryId, memberId);
 
         return ResponseEntity.ok(ApiResponseWrapper.success(HttpStatus.OK, response));
@@ -54,7 +55,7 @@ public class DiaryController {
 
     @DeleteMapping("/{diaryId}")
     public ResponseEntity<ApiResponseWrapper<Void>> deleteDiary(
-            @RequestParam long memberId,
+            @Memberid Long memberId,
             @PathVariable Long diaryId) {
         diaryService.deleteDiary(memberId, diaryId);
 
