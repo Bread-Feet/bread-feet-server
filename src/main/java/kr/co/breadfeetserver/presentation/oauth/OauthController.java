@@ -54,7 +54,7 @@ public class OauthController {
                     Member newMember = Member.builder()
                             .kakaoId(kakaoId)
                             .nickname(nickname)
-                            .email(" ")
+                            .email(kakaoId + "@kakao.user")
                             .role(MemberRole.USER)
                             .build();
                     return memberRepository.save(newMember);
