@@ -18,7 +18,7 @@ public class DiaryService {
     private final DiaryJpaRepository diaryJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
 
-    public Long createDiary(Long memberId, DiaryCrxeateRequest request) {
+    public Long createDiary(Long memberId, DiaryCreateRequest request) {
         memberJpaRepository.findById(memberId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.USER_NOT_FOUND));
         return diaryJpaRepository.save(request.toEntity(memberId)).getId();
