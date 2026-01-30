@@ -2,11 +2,14 @@ package kr.co.breadfeetserver.presentation.diary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import kr.co.breadfeetserver.application.diary.DiaryQuaryService;
 import kr.co.breadfeetserver.application.diary.DiaryService;
+import kr.co.breadfeetserver.domain.diary.Diary;
 import kr.co.breadfeetserver.fixture.DiaryFixture;
 import kr.co.breadfeetserver.infra.exception.GlobalExceptionHandler;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
+import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,13 +21,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Collections;
+
+import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiary;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,6 +42,8 @@ class DiaryControllerTest {
 
     @Mock
     private DiaryService diaryService;
+    @Mock
+    private DiaryQuaryService diaryQuaryService;
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -105,4 +111,23 @@ class DiaryControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("빵집일지_단건_조회_성공")
+    void 빵집일지_단건_조회_성공() throws Exception {
+        // Given
+        Diary diary = aDiary(diaryId);
+        DiaryResponse diaryResponse = DiaryResponse.from(diary, Collections.singletonList("소금빵"), Collections.singletonList("picture_url"));
+        when(diaryQuaryService.getDiary(anyLong(), anyLong())).thenReturn(diaryResponse);
+
+        // When & Then
+        mockMvc.perform(get("/diaries/{id}", diaryId)
+                        .param("memberId", String.valueOf(memberId)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.id").value(diaryId))
+                .andExpect(jsonPath("$.data.hashtags[0]").value("소금빵"))
+                .andExpect(jsonPath("$.data.pictureUrls[0]").value("picture_url"))
+                .andDo(print());
+    }
 }
+
