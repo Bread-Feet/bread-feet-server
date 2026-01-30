@@ -64,7 +64,7 @@ spring:
       redirect-uri: ${KAKAO_REDIRECT_URI}
 
 cors:
-  uri: ${CORS_URI}
+  uri: ${CORS_URI:https://breadfeet.co.kr,https://api.breadfeet.co.kr,http://localhost:3000}
 
 management:
   endpoints:
