@@ -8,7 +8,6 @@ import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class DiaryQuaryService {
+public class DiaryQueryService {
     private final DiaryJpaRepository diaryRepository;
     private final HashtagJpaRepository hashtagJpaRepository;
     private final PictureUrlJpaRepository pictureUrlJpaRepository;

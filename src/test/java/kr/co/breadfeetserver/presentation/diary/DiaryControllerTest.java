@@ -2,7 +2,7 @@ package kr.co.breadfeetserver.presentation.diary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import kr.co.breadfeetserver.application.diary.DiaryQuaryService;
+import kr.co.breadfeetserver.application.diary.DiaryQueryService;
 import kr.co.breadfeetserver.application.diary.DiaryService;
 import kr.co.breadfeetserver.domain.diary.Diary;
 import kr.co.breadfeetserver.fixture.DiaryFixture;
@@ -43,7 +43,7 @@ class DiaryControllerTest {
     @Mock
     private DiaryService diaryService;
     @Mock
-    private DiaryQuaryService diaryQuaryService;
+    private DiaryQueryService diaryQueryService;
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
@@ -118,7 +118,7 @@ class DiaryControllerTest {
         // Given
         Diary diary = aDiary(diaryId);
         DiaryResponse diaryResponse = DiaryResponse.from(diary, Collections.singletonList("소금빵"), Collections.singletonList("picture_url"));
-        when(diaryQuaryService.getDiary(anyLong(), anyLong())).thenReturn(diaryResponse);
+        when(diaryQueryService.getDiary(anyLong(), anyLong())).thenReturn(diaryResponse);
 
         // When & Then
         mockMvc.perform(get("/diaries/{id}", diaryId)

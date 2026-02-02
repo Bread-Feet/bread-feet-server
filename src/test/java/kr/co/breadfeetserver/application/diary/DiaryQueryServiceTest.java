@@ -19,7 +19,7 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("DiaryQuaryService 단위 테스트")
-class DiaryQuaryServiceTest {
+class DiaryQueryServiceTest {
 
     @Mock
     private DiaryJpaRepository diaryJpaRepository;
@@ -28,11 +28,11 @@ class DiaryQuaryServiceTest {
     @Mock
     private PictureUrlJpaRepository pictureUrlJpaRepository;
 
-    private DiaryQuaryService diaryQuaryService;
+    private DiaryQueryService diaryQueryService;
 
     @BeforeEach
     void setUp() {
-        diaryQuaryService = new DiaryQuaryService(diaryJpaRepository, hashtagJpaRepository, pictureUrlJpaRepository);
+        diaryQueryService = new DiaryQueryService(diaryJpaRepository, hashtagJpaRepository, pictureUrlJpaRepository);
     }
 
     @Test
@@ -50,7 +50,7 @@ class DiaryQuaryServiceTest {
         given(pictureUrlJpaRepository.findAllByDiaryId(anyLong())).willReturn(Collections.singletonList(pictureUrl));
 
         // When
-        DiaryResponse diaryResponse = diaryQuaryService.getDiary(diaryId, memberId);
+        DiaryResponse diaryResponse = diaryQueryService.getDiary(diaryId, memberId);
 
         // Then
         assertThat(diaryResponse.id()).isEqualTo(diaryId);

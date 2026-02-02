@@ -1,10 +1,9 @@
 package kr.co.breadfeetserver.presentation.diary;
 
-import kr.co.breadfeetserver.application.diary.DiaryQuaryService;
+import kr.co.breadfeetserver.application.diary.DiaryQueryService;
 import kr.co.breadfeetserver.application.diary.DiaryService;
 import kr.co.breadfeetserver.global.annotation.Memberid;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
-import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryUpdateRequest;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryResponse;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class DiaryController {
 
     private final DiaryService diaryService;
-    private final DiaryQuaryService diaryQueryService;
+    private final DiaryQueryService diaryQueryService;
 
     @PostMapping
     public ResponseEntity<ApiResponseWrapper<Long>> createDiary(
