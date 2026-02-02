@@ -23,6 +23,7 @@ public record DiaryCreateRequest(
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)
                 .content(content)
+                .memberId(memberId)
                 .build();
     }
 }
