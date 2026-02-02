@@ -92,3 +92,7 @@ springdoc:
     path: /swagger
     tags-sorter: alpha
     operations-sorter: alpha
+
+jwt:
+  secret-key: ${JWT_SECRET}
+  expiration-time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
