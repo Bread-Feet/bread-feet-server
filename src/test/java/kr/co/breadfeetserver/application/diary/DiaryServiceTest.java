@@ -64,14 +64,14 @@ class DiaryServiceTest {
         long diaryId = 1L;
         DiaryUpdateRequest request = aDiaryUpdateRequest(diaryId);
         Diary diary = aDiary(diaryId);
-        given(repository.findById(diaryId)).willReturn(Optional.of(diary));
+        given(repository.findByIdAndMemberId(diaryId, memberId)).willReturn(Optional.of(diary));
 
         // When
         diaryService.updateDiary(memberId, diaryId, request);
 
         // Then
         assertThat(diary.getScore()).isEqualTo(request.score());
-        verify(repository).findById(diaryId);
+        verify(repository).findByIdAndMemberId(diaryId, memberId);
     }
 
     @Test
