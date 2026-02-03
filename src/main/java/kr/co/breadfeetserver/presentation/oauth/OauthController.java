@@ -29,11 +29,11 @@ public class OauthController {
     private String kakaoRedirectUri;
 
     @GetMapping("/oauth/kakao/login")
-    public String kakaoLogin() {
+    public void kakaoLogin(HttpServletResponse response) throws IOException {
         String authUrl =
                 "https://kauth.kakao.com/oauth/authorize?client_id=" + kakaoClientId + "&redirect_uri="
                         + kakaoRedirectUri + "&response_type=code";
-        return "redirect:" + authUrl;
+        response.sendRedirect(authUrl);
     }
 
     @GetMapping("/login/oauth2/code/kakao")
@@ -54,7 +54,7 @@ public class OauthController {
                     Member newMember = Member.builder()
                             .kakaoId(kakaoId)
                             .nickname(nickname)
-                            .email(" ")
+                            .email(kakaoId + "@kakao.user")
                             .role(MemberRole.USER)
                             .build();
                     return memberRepository.save(newMember);

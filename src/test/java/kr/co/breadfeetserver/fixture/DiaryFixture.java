@@ -1,0 +1,55 @@
+package kr.co.breadfeetserver.fixture;
+
+import kr.co.breadfeetserver.domain.diary.Diary;
+import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
+import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
+
+import java.time.LocalDateTime;
+
+import static kr.co.breadfeetserver.fixture.AddressFixture.address;
+import static kr.co.breadfeetserver.fixture.AddressFixture.addressCreateRequest;
+import static kr.co.breadfeetserver.fixture.AddressFixture.addressUpdateRequest;
+
+public class DiaryFixture {
+
+    public static String thumbnailUrl = "https://example.com/diary.jpg";
+    public static int score = 5;
+    public static boolean isPublic = true;
+    public static LocalDateTime visitDate = LocalDateTime.now();
+    public static String content = "오늘도 맛있는 빵을 먹었다.";
+
+    public static Diary aDiary(Long id) {
+        return Diary.builder()
+                .id(id)
+                .address(address())
+                .thumbnailUrl(thumbnailUrl)
+                .score(score)
+                .isPublic(isPublic)
+                .visitDate(visitDate)
+                .content(content)
+                .build();
+    }
+
+    public static DiaryCreateRequest aDiaryCreateRequest() {
+        return new DiaryCreateRequest(
+                isPublic,
+                score,
+                address(),
+                thumbnailUrl,
+                visitDate,
+                content
+        );
+    }
+
+    public static DiaryUpdateRequest aDiaryUpdateRequest(Long diaryId) {
+        return new DiaryUpdateRequest(
+                diaryId,
+                isPublic,
+                score,
+                addressUpdateRequest(),
+                thumbnailUrl,
+                visitDate,
+                content
+        );
+    }
+}

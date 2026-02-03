@@ -63,7 +63,7 @@ spring:
       redirect-uri: ${KAKAO_REDIRECT_URI}
 
 cors:
-  uri: ${CORS_URI}
+  uri: ${CORS_URI:https://breadfeet.co.kr,https://api.breadfeet.co.kr,http://localhost:3000}
 
 management:
   endpoints:
@@ -91,3 +91,7 @@ springdoc:
     path: /swagger
     tags-sorter: alpha
     operations-sorter: alpha
+
+jwt:
+  secret-key: ${JWT_SECRET}
+  expiration-time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
