@@ -1,7 +1,7 @@
 package kr.co.breadfeetserver.presentation.bakery.dto.request;
 
 import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
-import kr.co.breadfeetserver.global.annotation.IsEssential;
+import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 
 public record AddressCreateRequest(
         @IsEssential(message = "상세 주소가 누락되었습니다.") String detail,
