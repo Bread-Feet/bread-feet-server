@@ -21,7 +21,6 @@ public record DiaryCreateRequest(
     public Diary toEntity(Long memberId){
         return Diary.builder()
                 .isPublic(isPublic)
-                .score(score)
                 .address(address)
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)

@@ -26,7 +26,6 @@ public record DiaryUpdateRequest(
     public Diary toEntity(Long memberId) {
         return Diary.builder()
                 .isPublic(isPublic)
-                .score(score)
                 .address(address.toEntity())
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)
