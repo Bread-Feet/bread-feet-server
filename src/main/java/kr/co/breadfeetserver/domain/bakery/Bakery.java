@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SoftDelete;
+import org.hibernate.annotations.SoftDeleteType;
 
 @Getter
 @Entity
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
 public class Bakery extends BaseTimeEntity {
 
     @Id
@@ -50,6 +53,8 @@ public class Bakery extends BaseTimeEntity {
 
     @Column(name = "y_coordinate")
     private Double yCoordinate;
+
+    private Boolean deleted;
 
     @Column(name = "member_id")
     private Long memberId;
