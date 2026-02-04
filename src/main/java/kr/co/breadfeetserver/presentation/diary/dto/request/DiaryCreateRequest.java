@@ -2,7 +2,7 @@ package kr.co.breadfeetserver.presentation.diary.dto.request;
 
 import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
 import kr.co.breadfeetserver.domain.diary.Diary;
-import kr.co.breadfeetserver.global.annotation.IsEssential;
+import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 
 import java.time.LocalDateTime;
 import java.util.List;
