@@ -53,7 +53,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-testcontainers:3.3.5'
     testImplementation 'org.testcontainers:testcontainers:1.19.3'
     testImplementation 'org.testcontainers:junit-jupiter:1.19.3'
-    testImplementation 'org.testcontainers:mysql:1.20.0'
+    testImplementation 'com.h2database:h2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     //monitoring

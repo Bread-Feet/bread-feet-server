@@ -1,8 +1,8 @@
 package kr.co.breadfeetserver.presentation.bakery.dto.request;
 
 import kr.co.breadfeetserver.domain.bakery.Bakery;
-import kr.co.breadfeetserver.global.annotation.IsEssential;
-import kr.co.breadfeetserver.global.annotation.PhoneNumberPattern;
+import kr.co.breadfeetserver.presentation.annotation.IsEssential;
+import kr.co.breadfeetserver.presentation.annotation.PhoneNumberPattern;
 
 public record BakeryUpdateRequest(
         @IsEssential long bakeryId,
