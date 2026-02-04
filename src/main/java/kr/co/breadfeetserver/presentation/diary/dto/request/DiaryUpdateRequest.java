@@ -9,6 +9,7 @@ import kr.co.breadfeetserver.presentation.bakery.dto.request.AddressUpdateReques
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record DiaryUpdateRequest(
         @IsEssential long diaryId,
@@ -17,7 +18,9 @@ public record DiaryUpdateRequest(
         @IsEssential AddressUpdateRequest address,
         @IsEssential String thumbnail,
         LocalDateTime visitDate,
-        String content
+        String content,
+        List<String> hashtags,
+        List<String> pictureUrls
 ) {
 
     public Diary toEntity(Long memberId) {
@@ -28,6 +31,7 @@ public record DiaryUpdateRequest(
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)
                 .content(content)
+                .memberId(memberId)
                 .build();
     }
 }

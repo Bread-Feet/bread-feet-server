@@ -39,9 +39,6 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "thumb_url")
     private String thumbnailUrl;
 
-    @Column(name = "score")
-    private Integer score;
-
     @Column(name = "ispublic")
     private Boolean isPublic;
 
@@ -60,14 +57,12 @@ public class Diary extends BaseTimeEntity {
     public void updateDiary(
             AddressJpaVO address,
             String thumbnailUrl,
-            Integer score,
             Boolean isPublic,
             LocalDateTime visitDate,
             String content
     ) {
         this.address = address;
         this.thumbnailUrl = thumbnailUrl;
-        this.score = score;
         this.isPublic = isPublic;
         this.visitDate = visitDate;
         this.content = content;
