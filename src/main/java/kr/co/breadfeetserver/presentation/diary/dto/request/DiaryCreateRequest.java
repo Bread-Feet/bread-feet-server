@@ -4,7 +4,6 @@ import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
 import kr.co.breadfeetserver.domain.diary.Diary;
 import kr.co.breadfeetserver.global.annotation.IsEssential;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
