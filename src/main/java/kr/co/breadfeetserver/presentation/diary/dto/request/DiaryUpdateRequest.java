@@ -2,8 +2,7 @@ package kr.co.breadfeetserver.presentation.diary.dto.request;
 
 import java.time.LocalDateTime;
 import kr.co.breadfeetserver.domain.diary.Diary;
-import kr.co.breadfeetserver.global.annotation.IsEssential;
-import kr.co.breadfeetserver.global.annotation.PhoneNumberPattern;
+import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.AddressUpdateRequest;
 
 import java.time.LocalDate;
