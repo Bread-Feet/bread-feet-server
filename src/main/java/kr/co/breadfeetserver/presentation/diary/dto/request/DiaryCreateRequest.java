@@ -1,11 +1,9 @@
 package kr.co.breadfeetserver.presentation.diary.dto.request;
 
+import java.time.LocalDateTime;
 import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
 import kr.co.breadfeetserver.domain.diary.Diary;
-import kr.co.breadfeetserver.global.annotation.IsEssential;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 
 public record DiaryCreateRequest(
         @IsEssential Boolean isPublic,
@@ -15,7 +13,8 @@ public record DiaryCreateRequest(
         LocalDateTime visitDate,
         String content
 ) {
-    public Diary toEntity(Long memberId){
+
+    public Diary toEntity(Long memberId) {
         return Diary.builder()
                 .isPublic(isPublic)
                 .score(score)
