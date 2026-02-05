@@ -14,7 +14,6 @@ import org.hibernate.annotations.SoftDeleteType;
 @AllArgsConstructor
 @Builder
 @Entity
-@SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
 public class PictureUrl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
