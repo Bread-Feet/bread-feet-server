@@ -1,11 +1,10 @@
 package kr.co.breadfeetserver.global.resolver;
 
 
-
 import jakarta.servlet.http.HttpServletRequest;
-import kr.co.breadfeetserver.global.annotation.Memberid;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
+import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -28,7 +27,7 @@ public class MemberIdArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         if (request == null) {
             throw new BreadFeetBusinessException(ErrorCode.SERVER_ERROR);
