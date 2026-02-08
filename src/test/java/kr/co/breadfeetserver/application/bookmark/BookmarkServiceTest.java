@@ -7,6 +7,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 import java.util.Optional;
+import kr.co.breadfeetserver.domain.bakery.Bakery;
+import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
 import kr.co.breadfeetserver.domain.bookmark.Bookmark;
 import kr.co.breadfeetserver.domain.bookmark.BookmarkJpaRepository;
 import kr.co.breadfeetserver.domain.member.Member;
@@ -28,11 +30,18 @@ class BookmarkServiceTest {
     @Mock
     private BookmarkJpaRepository bookmarkJpaRepository;
 
+    @Mock
+    private BakeryJpaRepository bakeryJpaRepository;
+
     private BookmarkService bookmarkService;
 
     @BeforeEach
     void setUp() {
-        bookmarkService = new BookmarkService(memberJpaRepository, bookmarkJpaRepository);
+        bookmarkService = new BookmarkService(
+                memberJpaRepository,
+                bookmarkJpaRepository,
+                bakeryJpaRepository
+        );
     }
 
     @Test
@@ -78,8 +87,10 @@ class BookmarkServiceTest {
         Long bakeryId = 1L;
         given(memberJpaRepository.findById(memberId)).willReturn(
                 Optional.of(Member.builder().id(memberId).build()));
-        given(bookmarkJpaRepository.save(any(Bookmark.class))).willReturn(
-                Bookmark.builder().bakeryId(bakeryId).memberId(memberId).build());
+        given(bakeryJpaRepository.findById(bakeryId)).willReturn(
+                Optional.of(Bakery.builder().id(bakeryId).build()));
+        given(bookmarkJpaRepository.existsByBakeryIdAndMemberId(bakeryId, memberId)).willReturn(
+                false);
 
         // When
         bookmarkService.bookmark(memberId, bakeryId);
@@ -108,16 +119,17 @@ class BookmarkServiceTest {
     void 사용자는_빵집_북마크를_취소할_수_있다() {
         // Given
         Long memberId = 1L;
-        Long bookmarkId = 1L;
-        Bookmark bookmark = Bookmark.builder().id(bookmarkId).bakeryId(1L).memberId(memberId)
+        Long bakeryId = 1L;
+        Bookmark bookmark = Bookmark.builder().id(1L).bakeryId(bakeryId).memberId(memberId)
                 .build();
-        given(bookmarkJpaRepository.findById(bookmarkId)).willReturn(Optional.of(bookmark));
+        given(bookmarkJpaRepository.findByMemberIdAndBakeryId(memberId, bakeryId)).willReturn(
+                Optional.of(bookmark));
 
         // When
-        bookmarkService.unbookmark(memberId, bookmarkId);
+        bookmarkService.unbookmark(memberId, bakeryId);
 
         // Then
-        verify(bookmarkJpaRepository).findById(bookmarkId);
+        verify(bookmarkJpaRepository).findByMemberIdAndBakeryId(memberId, bakeryId);
         verify(bookmarkJpaRepository).delete(bookmark);
     }
 
@@ -126,29 +138,13 @@ class BookmarkServiceTest {
     void 존재하지_않는_북마크_취소_시도_시_예외_발생() {
         // Given
         Long memberId = 1L;
-        Long bookmarkId = 1L;
-        given(bookmarkJpaRepository.findById(bookmarkId)).willReturn(Optional.empty());
+        Long bakeryId = 1L;
+        given(bookmarkJpaRepository.findByMemberIdAndBakeryId(memberId, bakeryId)).willReturn(
+                Optional.empty());
 
         // When & Then
         assertThrows(BreadFeetBusinessException.class,
-                () -> bookmarkService.unbookmark(memberId, bookmarkId));
-        verify(bookmarkJpaRepository).findById(bookmarkId);
-    }
-
-    @Test
-    @DisplayName("다른_회원의_북마크_취소_시도_시_예외_발생")
-    void 다른_회원의_북마크_취소_시도_시_예외_발생() {
-        // Given
-        Long memberId = 1L;
-        Long otherMemberId = 2L;
-        Long bookmarkId = 1L;
-        Bookmark bookmark = Bookmark.builder().id(bookmarkId).bakeryId(1L).memberId(otherMemberId)
-                .build();
-        given(bookmarkJpaRepository.findById(bookmarkId)).willReturn(Optional.of(bookmark));
-
-        // When & Then
-        assertThrows(BreadFeetBusinessException.class,
-                () -> bookmarkService.unbookmark(memberId, bookmarkId));
-        verify(bookmarkJpaRepository).findById(bookmarkId);
+                () -> bookmarkService.unbookmark(memberId, bakeryId));
+        verify(bookmarkJpaRepository).findByMemberIdAndBakeryId(memberId, bakeryId);
     }
 }
