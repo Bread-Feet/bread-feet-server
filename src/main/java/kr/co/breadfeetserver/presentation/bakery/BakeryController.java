@@ -2,6 +2,7 @@ package kr.co.breadfeetserver.presentation.bakery;
 
 import kr.co.breadfeetserver.application.bakery.BakeryService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
+import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCreateRequest;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryUpdateRequest;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,7 +25,7 @@ public class BakeryController {
 
     @PostMapping
     public ResponseEntity<ApiResponseWrapper<Long>> createBakery(
-            @RequestParam long memberId,
+            @Memberid long memberId,
             @RequestBody BakeryCreateRequest request) {
         Long bakeryId = bakeryService.createBakery(memberId, request);
 
@@ -36,7 +36,7 @@ public class BakeryController {
 
     @PutMapping("/{bakeryId}")
     public ResponseEntity<ApiResponseWrapper<Void>> updateBakery(
-            @RequestParam long memberId,
+            @Memberid long memberId,
             @PathVariable Long bakeryId,
             @RequestBody BakeryUpdateRequest request) {
         bakeryService.updateBakery(memberId, bakeryId, request);
@@ -48,7 +48,7 @@ public class BakeryController {
 
     @DeleteMapping("/{bakeryId}")
     public ResponseEntity<ApiResponseWrapper<Void>> deleteBakery(
-            @RequestParam long memberId,
+            @Memberid long memberId,
             @PathVariable Long bakeryId) {
         bakeryService.deleteBakery(memberId, bakeryId);
 
