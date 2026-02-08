@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,10 @@ import org.hibernate.annotations.SoftDeleteType;
 @Getter
 @Entity
 @Builder
-@Table(name = "bookmark")
+@Table(
+        name = "bookmark",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"member_id", "bakery_id"})}
+)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
@@ -29,9 +33,9 @@ public class Bookmark extends BaseTimeEntity {
     @Column(name = "bookmark_id")
     private Long id;
 
-    @Column(name = "member_id")
+    @Column(name = "member_id", nullable = false)
     private Long memberId;
 
-    @Column(name = "bakery_id")
+    @Column(name = "bakery_id", nullable = false)
     private Long bakeryId;
 }

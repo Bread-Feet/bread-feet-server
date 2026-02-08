@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.application.bookmark;
 
+import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
 import kr.co.breadfeetserver.domain.bookmark.Bookmark;
 import kr.co.breadfeetserver.domain.bookmark.BookmarkJpaRepository;
 import kr.co.breadfeetserver.domain.member.Member;
@@ -17,6 +18,7 @@ public class BookmarkService {
 
     private final MemberJpaRepository memberJpaRepository;
     private final BookmarkJpaRepository bookmarkJpaRepository;
+    private final BakeryJpaRepository bakeryJpaRepository;
 
     public boolean isBookmarked(Long bakeryId, Long memberId) {
         Member member = memberJpaRepository.findById(memberId).orElseThrow(
@@ -27,9 +29,17 @@ public class BookmarkService {
     }
 
     public void bookmark(Long memberId, Long bakeryId) {
-        Member member = memberJpaRepository.findById(memberId).orElseThrow(
+        memberJpaRepository.findById(memberId).orElseThrow(
                 () -> new BreadFeetBusinessException(ErrorCode.USER_NOT_FOUND)
         );
+
+        bakeryJpaRepository.findById(bakeryId).orElseThrow(
+                () -> new BreadFeetBusinessException(ErrorCode.BAKERY_NOT_FOUND)
+        );
+
+        if (bookmarkJpaRepository.existsByBakeryIdAndMemberId(bakeryId, memberId)) {
+            throw new BreadFeetBusinessException(ErrorCode.BOOKMARK_ALREADY_EXISTS);
+        }
 
         Bookmark bookmark = Bookmark.builder()
                 .bakeryId(bakeryId)
@@ -39,14 +49,10 @@ public class BookmarkService {
         bookmarkJpaRepository.save(bookmark);
     }
 
-    public void unbookmark(Long memberId, Long bookmarkId) {
-        Bookmark bookmark = bookmarkJpaRepository.findById(bookmarkId).orElseThrow(
+    public void unbookmark(Long memberId, Long bakeryId) {
+        Bookmark bookmark = bookmarkJpaRepository.findByMemberIdAndBakeryId(memberId, bakeryId).orElseThrow(
                 () -> new BreadFeetBusinessException(ErrorCode.BOOKMARK_NOT_FOUND)
         );
-
-        if (!bookmark.getMemberId().equals(memberId)) {
-            throw new BreadFeetBusinessException(ErrorCode.USER_NOT_ACCESS_FORBIDDEN);
-        }
 
         bookmarkJpaRepository.delete(bookmark);
     }
