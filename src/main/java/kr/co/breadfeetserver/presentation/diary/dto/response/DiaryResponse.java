@@ -11,7 +11,6 @@ public record DiaryResponse(
         Long id,
         AddressJpaVO address,
         String thumbnailUrl,
-        Integer score,
         Boolean isPublic,
         LocalDateTime visitDate,
         String content,
@@ -26,7 +25,6 @@ public record DiaryResponse(
                 .id(diary.getId())
                 .address(diary.getAddress())
                 .thumbnailUrl(diary.getThumbnailUrl())
-                .score(diary.getScore())
                 .isPublic(diary.getIsPublic())
                 .visitDate(diary.getVisitDate())
                 .content(diary.getContent())

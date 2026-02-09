@@ -5,6 +5,10 @@ import kr.co.breadfeetserver.domain.diary.Diary;
 import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.AddressUpdateRequest;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 public record DiaryUpdateRequest(
         @IsEssential long diaryId,
         @IsEssential Boolean isPublic,
@@ -12,17 +16,19 @@ public record DiaryUpdateRequest(
         @IsEssential AddressUpdateRequest address,
         @IsEssential String thumbnail,
         LocalDateTime visitDate,
-        String content
+        String content,
+        List<String> hashtags,
+        List<String> pictureUrls
 ) {
 
     public Diary toEntity(Long memberId) {
         return Diary.builder()
                 .isPublic(isPublic)
-                .score(score)
                 .address(address.toEntity())
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)
                 .content(content)
+                .memberId(memberId)
                 .build();
     }
 }
