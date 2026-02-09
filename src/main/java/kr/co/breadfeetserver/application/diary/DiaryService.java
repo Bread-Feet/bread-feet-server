@@ -61,10 +61,12 @@ public class DiaryService {
     }
 
     public void deleteDiary(long memberId, Long diaryId){
-        Diary diary = diaryJpaRepository.findByIdAndMemberId(diaryId, memberId)
+        diaryJpaRepository.findByIdAndMemberId(diaryId, memberId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
-        diaryJpaRepository.delete(diary);
+        hashtagJpaRepository.deleteAllByDiaryId(diaryId);
+        pictureUrlJpaRepository.deleteAllByDiaryId(diaryId);
+        diaryJpaRepository.deleteById(diaryId);
     }
     private void diaryUpdateRequestToEntity(Diary diary, DiaryUpdateRequest request) {
         diary.updateDiary(

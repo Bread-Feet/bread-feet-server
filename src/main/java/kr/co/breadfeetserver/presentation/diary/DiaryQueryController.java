@@ -2,7 +2,7 @@ package kr.co.breadfeetserver.presentation.diary;
 
 import kr.co.breadfeetserver.application.diary.DiaryQueryService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
-import kr.co.breadfeetserver.global.annotation.Memberid;
+import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCursorCommand;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryListResponse;
 import kr.co.breadfeetserver.presentation.support.CursorResponse;

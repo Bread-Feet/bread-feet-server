@@ -26,6 +26,7 @@ import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiaryUpdateRequest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -100,11 +101,16 @@ class DiaryServiceTest {
         long diaryId = 1L;
         Diary diary = Diary.builder().memberId(memberId).build();
         given(repository.findByIdAndMemberId(diaryId, memberId)).willReturn(Optional.of(diary));
+        doNothing().when(hashtagJpaRepository).deleteAllByDiaryId(diaryId);
+        doNothing().when(pictureUrlJpaRepository).deleteAllByDiaryId(diaryId);
+        doNothing().when(repository).deleteById(diaryId);
 
         // When
         diaryService.deleteDiary(memberId, diaryId);
 
         // Then
-        verify(repository).delete(diary);
+        verify(hashtagJpaRepository).deleteAllByDiaryId(diaryId);
+        verify(pictureUrlJpaRepository).deleteAllByDiaryId(diaryId);
+        verify(repository).deleteById(diaryId);
     }
 }
