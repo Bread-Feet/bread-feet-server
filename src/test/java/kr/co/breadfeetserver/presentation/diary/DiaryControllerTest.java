@@ -62,7 +62,7 @@ class DiaryControllerTest {
         objectMapper.registerModule(new JavaTimeModule());
 
 
-        diaryCreateRequest = DiaryFixture.aDiaryCreateRequest();
+        diaryCreateRequest = DiaryFixture.aDiaryCreateRequest(Collections.emptyList(), Collections.emptyList());
         diaryUpdateRequest = DiaryFixture.aDiaryUpdateRequest(diaryId);
     }
 
