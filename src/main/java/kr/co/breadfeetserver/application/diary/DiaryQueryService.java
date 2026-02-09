@@ -1,7 +1,6 @@
 package kr.co.breadfeetserver.application.diary;
 
 import kr.co.breadfeetserver.application.support.CursorService;
-import kr.co.breadfeetserver.domain.bakery.query.BakeryQueryRepository;
 import kr.co.breadfeetserver.domain.diary.Diary;
 import kr.co.breadfeetserver.domain.diary.DiaryJpaRepository;
 import kr.co.breadfeetserver.domain.diary.HashtagJpaRepository;
@@ -9,8 +8,6 @@ import kr.co.breadfeetserver.domain.diary.PictureUrlJpaRepository;
 import kr.co.breadfeetserver.domain.diary.query.DiaryQueryRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
-import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
-import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryListResponse;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCursorCommand;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryListResponse;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryResponse;
