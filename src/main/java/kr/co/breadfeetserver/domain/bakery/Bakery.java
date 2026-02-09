@@ -65,9 +65,7 @@ public class Bakery extends BaseTimeEntity {
             String imageUrl,
             String phoneNumber,
             String businessHours,
-            String bestBread,
-            Double xCoordinate,
-            Double yCoordinate
+            String bestBread
     ) {
         this.name = name;
         this.address = address;
@@ -75,7 +73,5 @@ public class Bakery extends BaseTimeEntity {
         this.phoneNumber = phoneNumber;
         this.businessHours = businessHours;
         this.bestBread = bestBread;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
     }
 }

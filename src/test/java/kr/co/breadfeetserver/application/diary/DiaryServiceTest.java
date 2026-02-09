@@ -1,5 +1,17 @@
 package kr.co.breadfeetserver.application.diary;
 
+import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiary;
+import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiaryCreateRequest;
+import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiaryUpdateRequest;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.util.List;
+import java.util.Optional;
 import kr.co.breadfeetserver.domain.diary.Diary;
 import kr.co.breadfeetserver.domain.diary.DiaryJpaRepository;
 import kr.co.breadfeetserver.domain.diary.Hashtag;
@@ -16,19 +28,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-import java.util.Optional;
-
-import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiary;
-import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiaryCreateRequest;
-import static kr.co.breadfeetserver.fixture.DiaryFixture.aDiaryUpdateRequest;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("DiaryService 단위 테스트")
@@ -47,7 +46,8 @@ class DiaryServiceTest {
 
     @BeforeEach
     void setUp() {
-        diaryService = new DiaryService(repository, memberJpaRepository, hashtagJpaRepository, pictureUrlJpaRepository);
+        diaryService = new DiaryService(repository, memberJpaRepository, hashtagJpaRepository,
+                pictureUrlJpaRepository);
     }
 
     @Test
@@ -60,10 +60,13 @@ class DiaryServiceTest {
         DiaryCreateRequest request = aDiaryCreateRequest(hashtags, pictureUrls);
         Diary diary = aDiary(1L);
 
-        given(memberJpaRepository.findById(any(Long.class))).willReturn(Optional.of(Member.builder().build()));
+        given(memberJpaRepository.findById(any(Long.class))).willReturn(
+                Optional.of(Member.builder().build()));
         given(repository.save(any(Diary.class))).willReturn(diary);
-        given(hashtagJpaRepository.save(any(Hashtag.class))).willAnswer(invocation -> invocation.getArgument(0));
-        given(pictureUrlJpaRepository.save(any(PictureUrl.class))).willAnswer(invocation -> invocation.getArgument(0));
+        given(hashtagJpaRepository.save(any(Hashtag.class))).willAnswer(
+                invocation -> invocation.getArgument(0));
+        given(pictureUrlJpaRepository.save(any(PictureUrl.class))).willAnswer(
+                invocation -> invocation.getArgument(0));
 
         // When
         Long diaryId = diaryService.createDiary(memberId, request);
