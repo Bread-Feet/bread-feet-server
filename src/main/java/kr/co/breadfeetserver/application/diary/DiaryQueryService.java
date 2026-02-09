@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class DiaryQueryService {
-    private final DiaryJpaRepository diaryRepository;
     private final DiaryQueryRepository diaryJdbcRepository;
     private final HashtagJpaRepository hashtagJpaRepository;
     private final PictureUrlJpaRepository pictureUrlJpaRepository;
@@ -40,7 +39,7 @@ public class DiaryQueryService {
     }
 
     public DiaryResponse getDiary(Long diaryid, Long currentMemberId) {
-        Diary diary = diaryRepository.findById(diaryid)
+        Diary diary = diaryJdbcRepository.findById(diaryid)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
         List<String> hashtags = hashtagJpaRepository.findAllByDiaryId(diaryid).stream()

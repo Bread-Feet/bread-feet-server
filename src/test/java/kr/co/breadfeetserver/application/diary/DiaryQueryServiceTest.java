@@ -24,21 +24,19 @@ import static org.mockito.BDDMockito.given;
 class DiaryQueryServiceTest {
 
     @Mock
-    private DiaryJpaRepository diaryJpaRepository;
-    @Mock
-    private DiaryQueryRepository diaryQueryRepository; // Added
+    private DiaryQueryRepository diaryQueryRepository;
     @Mock
     private HashtagJpaRepository hashtagJpaRepository;
     @Mock
     private PictureUrlJpaRepository pictureUrlJpaRepository;
     @Mock
-    private CursorService cursorService; // Added
+    private CursorService cursorService;
 
     private DiaryQueryService diaryQueryService;
 
     @BeforeEach
     void setUp() {
-        diaryQueryService = new DiaryQueryService(diaryJpaRepository, diaryQueryRepository, hashtagJpaRepository, pictureUrlJpaRepository, cursorService); // Updated constructor
+        diaryQueryService = new DiaryQueryService(diaryQueryRepository, hashtagJpaRepository, pictureUrlJpaRepository, cursorService); // Updated constructor
     }
 
     @Test
@@ -51,7 +49,7 @@ class DiaryQueryServiceTest {
         Hashtag hashtag = Hashtag.builder().id(1L).name("소금빵").diaryId(diaryId).build();
         PictureUrl pictureUrl = PictureUrl.builder().id(1L).pic_url("picture_url").diaryId(diaryId).build();
 
-        given(diaryJpaRepository.findById(anyLong())).willReturn(Optional.of(diary));
+        given(diaryQueryRepository.findById(anyLong())).willReturn(Optional.of(diary));
         given(hashtagJpaRepository.findAllByDiaryId(anyLong())).willReturn(Collections.singletonList(hashtag));
         given(pictureUrlJpaRepository.findAllByDiaryId(anyLong())).willReturn(Collections.singletonList(pictureUrl));
 
