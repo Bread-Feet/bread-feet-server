@@ -21,6 +21,9 @@ public enum ErrorCode {
     BAKERY_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 존재하는 빵집입니다."),
     BAKERY_NOT_FOUND(HttpStatus.NOT_FOUND, "빵집을 찾을 수 없습니다."),
 
+    // 메뉴 관련 에러
+    MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "메뉴를 찾을 수 없습니다."),
+
     // like 관련 에러
     BOOKMARK_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 북마크한 게시글입니다."),
     BOOKMARK_NOT_FOUND(HttpStatus.NOT_FOUND, "북마크를 찾을 수 없습니다."),
