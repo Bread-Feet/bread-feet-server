@@ -1,0 +1,6 @@
+package kr.co.breadfeetserver.domain.diary.query;
+
+import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
+
+public interface DiaryQueryRepository extends DiaryJdbcRepository, BakeryJpaRepository {
+}

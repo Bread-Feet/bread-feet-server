@@ -14,7 +14,7 @@ import static kr.co.breadfeetserver.fixture.AddressFixture.addressUpdateRequest;
 public class DiaryFixture {
 
     public static String thumbnailUrl = "https://example.com/diary.jpg";
-    public static int score = 5;
+    // public static int score = 5; // score field is not in Diary entity
     public static boolean isPublic = true;
     public static LocalDateTime visitDate = LocalDateTime.now();
     public static String content = "오늘도 맛있는 빵을 먹었다.";
@@ -24,7 +24,7 @@ public class DiaryFixture {
                 .id(id)
                 .address(address())
                 .thumbnailUrl(thumbnailUrl)
-                .score(score)
+                // .score(score) // score field is not in Diary entity
                 .isPublic(isPublic)
                 .visitDate(visitDate)
                 .content(content)
@@ -34,7 +34,7 @@ public class DiaryFixture {
     public static DiaryCreateRequest aDiaryCreateRequest(List<String> hashtags, List<String> pictureUrls) {
         return new DiaryCreateRequest(
                 isPublic,
-                score,
+                5, // Assuming a default score for tests
                 address(),
                 thumbnailUrl,
                 visitDate,
@@ -48,11 +48,13 @@ public class DiaryFixture {
         return new DiaryUpdateRequest(
                 diaryId,
                 isPublic,
-                score,
+                5, // Assuming a default score for tests
                 addressUpdateRequest(),
                 thumbnailUrl,
                 visitDate,
-                content
+                content,
+                List.of(), // Placeholder for hashtags
+                List.of()  // Placeholder for pictureUrls
         );
     }
 }

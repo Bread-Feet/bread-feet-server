@@ -1,6 +1,8 @@
 package kr.co.breadfeetserver.application.diary;
 
 import kr.co.breadfeetserver.domain.diary.*;
+import kr.co.breadfeetserver.domain.diary.query.DiaryQueryRepository; // Added import
+import kr.co.breadfeetserver.application.support.CursorService; // Added import
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,15 +26,19 @@ class DiaryQueryServiceTest {
     @Mock
     private DiaryJpaRepository diaryJpaRepository;
     @Mock
+    private DiaryQueryRepository diaryQueryRepository; // Added
+    @Mock
     private HashtagJpaRepository hashtagJpaRepository;
     @Mock
     private PictureUrlJpaRepository pictureUrlJpaRepository;
+    @Mock
+    private CursorService cursorService; // Added
 
     private DiaryQueryService diaryQueryService;
 
     @BeforeEach
     void setUp() {
-        diaryQueryService = new DiaryQueryService(diaryJpaRepository, hashtagJpaRepository, pictureUrlJpaRepository);
+        diaryQueryService = new DiaryQueryService(diaryJpaRepository, diaryQueryRepository, hashtagJpaRepository, pictureUrlJpaRepository, cursorService); // Updated constructor
     }
 
     @Test
