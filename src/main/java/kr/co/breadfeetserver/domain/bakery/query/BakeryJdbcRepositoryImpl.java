@@ -23,13 +23,13 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
     @Override
     public Slice<BakeryListResponse> findAll(BakeryCursorCommand command) {
         MapSqlParameterSource params = new MapSqlParameterSource()
-            .addValue("size", command.size() + 1);
+                .addValue("size", command.size() + 1);
 
         String sql = BAKERY_SELECT + "\n"
-            + "WHERE deleted_at IS NULL\n"
-            + createCursorCondition(command.cursor(), params)
-            + "ORDER BY bakery_id DESC\n"
-            + "LIMIT :size";
+                + "WHERE deleted_at IS NULL\n"
+                + createCursorCondition(command.cursor(), params)
+                + "ORDER BY bakery_id DESC\n"
+                + "LIMIT :size";
 
         List<BakeryListResponse> bakeries = jdbc.query(sql, params, ROW_MAPPER);
 
@@ -46,6 +46,6 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
             return "";
         }
         params.addValue("cursor", cursor);
-        return "AND bakery_id < :cursor\n";
+        return "AND bakery_id > :cursor\n";
     }
 }

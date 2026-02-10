@@ -9,17 +9,17 @@ import org.springframework.http.ResponseEntity;
 public interface BakeryControllerDocs {
 
     public ResponseEntity<ApiResponseWrapper<Void>> createBakery(
-            @Parameter(hidden = true) long memberId,
+            @Parameter(hidden = true) Long memberId,
             BakeryCreateRequest request
     );
 
     public ResponseEntity<ApiResponseWrapper<Void>> updateBakery(
-            @Parameter(hidden = true) long memberId,
+            @Parameter(hidden = true) Long memberId,
             BakeryUpdateRequest request
     );
 
     public ResponseEntity<ApiResponseWrapper<Void>> deleteBakery(
-            @Parameter(hidden = true) long memberId,
+            @Parameter(hidden = true) Long memberId,
             Long bakeryId
     );
 }

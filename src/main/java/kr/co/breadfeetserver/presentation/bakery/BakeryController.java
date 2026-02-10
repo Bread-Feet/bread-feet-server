@@ -25,7 +25,7 @@ public class BakeryController implements BakeryControllerDocs {
 
     @PostMapping
     public ResponseEntity<ApiResponseWrapper<Void>> createBakery(
-            @Memberid long memberId,
+            @Memberid Long memberId,
             @RequestBody BakeryCreateRequest request) {
         bakeryService.createBakery(memberId, request);
 
@@ -34,9 +34,9 @@ public class BakeryController implements BakeryControllerDocs {
                 .body(ApiResponseWrapper.success(HttpStatus.CREATED, "빵집 생성 성공"));
     }
 
-    @PutMapping("/{bakeryId}")
+    @PutMapping
     public ResponseEntity<ApiResponseWrapper<Void>> updateBakery(
-            @Memberid long memberId,
+            @Memberid Long memberId,
             @RequestBody BakeryUpdateRequest request) {
         bakeryService.updateBakery(memberId, request);
 
@@ -47,7 +47,7 @@ public class BakeryController implements BakeryControllerDocs {
 
     @DeleteMapping("/{bakeryId}")
     public ResponseEntity<ApiResponseWrapper<Void>> deleteBakery(
-            @Memberid long memberId,
+            @Memberid Long memberId,
             @PathVariable Long bakeryId) {
         bakeryService.deleteBakery(memberId, bakeryId);
 
