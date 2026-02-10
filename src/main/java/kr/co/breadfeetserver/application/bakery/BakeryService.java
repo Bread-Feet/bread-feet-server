@@ -2,6 +2,7 @@ package kr.co.breadfeetserver.application.bakery;
 
 import kr.co.breadfeetserver.application.menu.MenuCreateCommand;
 import kr.co.breadfeetserver.application.menu.MenuService;
+import kr.co.breadfeetserver.application.menu.MenuUpdateCommand;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
@@ -40,6 +41,8 @@ public class BakeryService {
         }
 
         bakeryUpdateRequestToEntity(bakery, request);
+
+        menuService.updateMenu(new MenuUpdateCommand(request.bakeryId(), request.menus()));
     }
 
     public void deleteBakery(long memberId, Long bakeryId) {
