@@ -24,15 +24,13 @@ import static org.mockito.BDDMockito.given;
 class DiaryQueryServiceTest {
 
     @Mock
-    private DiaryJpaRepository diaryJpaRepository;
-    @Mock
-    private DiaryQueryRepository diaryQueryRepository; // Added
+    private DiaryQueryRepository diaryQueryRepository;
     @Mock
     private HashtagJpaRepository hashtagJpaRepository;
     @Mock
     private PictureUrlJpaRepository pictureUrlJpaRepository;
     @Mock
-    private CursorService cursorService; // Added
+    private CursorService cursorService;
 
     private DiaryQueryService diaryQueryService;
 
