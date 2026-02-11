@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.presentation.bakery.dto.request;
 
+import java.util.List;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 import kr.co.breadfeetserver.presentation.annotation.PhoneNumberPattern;
@@ -11,8 +12,7 @@ public record BakeryCreateRequest(
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
-        Double xCoordinate,
-        Double yCoordinate
+        List<SingleMenuCreateRequest> menus
 ) {
 
     public Bakery toEntity(Long memberId) {
@@ -23,8 +23,6 @@ public record BakeryCreateRequest(
                 .phoneNumber(phoneNumber)
                 .businessHours(businessHours)
                 .bestBread(bestBread)
-                .xCoordinate(xCoordinate)
-                .yCoordinate(yCoordinate)
                 .memberId(memberId)
                 .build();
     }
