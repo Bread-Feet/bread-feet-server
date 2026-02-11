@@ -1,6 +1,7 @@
 package kr.co.breadfeetserver.domain.review;
 
 import jakarta.persistence.*;
+import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
 import kr.co.breadfeetserver.domain.member.Member;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.*;
@@ -31,4 +32,12 @@ public class Review extends BaseTimeEntity {
 
     @Column(name = "member_id")
     private Long memberId;
+
+    public void updateReview(
+            String content,
+            double rating
+    ) {
+        this.content = content;
+        this.rating = rating;
+    }
 }

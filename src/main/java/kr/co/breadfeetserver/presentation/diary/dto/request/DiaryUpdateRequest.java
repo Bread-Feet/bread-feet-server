@@ -12,7 +12,6 @@ import java.util.List;
 public record DiaryUpdateRequest(
         @IsEssential long diaryId,
         @IsEssential Boolean isPublic,
-        @IsEssential Integer score,
         @IsEssential AddressUpdateRequest address,
         @IsEssential String thumbnail,
         LocalDateTime visitDate,
@@ -20,7 +19,6 @@ public record DiaryUpdateRequest(
         List<String> hashtags,
         List<String> pictureUrls
 ) {
-
     public Diary toEntity(Long memberId) {
         return Diary.builder()
                 .isPublic(isPublic)

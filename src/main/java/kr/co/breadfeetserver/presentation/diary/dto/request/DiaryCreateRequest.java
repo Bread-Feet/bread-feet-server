@@ -9,7 +9,6 @@ import java.util.List;
 
 public record DiaryCreateRequest(
         @IsEssential Boolean isPublic,
-        @IsEssential Integer score,
         @IsEssential AddressJpaVO address,
         @IsEssential String thumbnail,
         LocalDateTime visitDate,

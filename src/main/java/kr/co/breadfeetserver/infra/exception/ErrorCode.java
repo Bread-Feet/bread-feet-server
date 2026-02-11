@@ -8,13 +8,15 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
+    //리뷰 관련 에러
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "리뷰를 찾을 수 없습니다."),
     // 다이어리 관련 에러
     DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "다이어리를 찾을 수 없습니다."),
     // 유저 관련 에러
     USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 존재하는 사용자입니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
     USER_INFO_INVALID(HttpStatus.BAD_REQUEST, "유효하지 않은 사용자 정보입니다."),
-    USER_NOT_ACCESS_FORBIDDEN(HttpStatus.BAD_REQUEST, "접근 권한이 없는 사용자입니다"),
+    USER_NOT_ACCESS_FORBIDDEN(HttpStatus.FORBIDDEN, "접근 권한이 없는 사용자입니다"),
     USER_SAVE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "사용자 저장에 실패했습니다."),
 
     // 빵집 관련 에러
