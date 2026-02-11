@@ -12,6 +12,10 @@ public record BakeryCreateRequest(
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
+        boolean isDrink,
+        boolean isEatIn,
+        boolean isWaiting,
+        boolean isParking,
         List<SingleMenuCreateRequest> menus
 ) {
 
@@ -23,6 +27,10 @@ public record BakeryCreateRequest(
                 .phoneNumber(phoneNumber)
                 .businessHours(businessHours)
                 .bestBread(bestBread)
+                .isDrink(isDrink)
+                .isEatIn(isEatIn)
+                .isWaiting(isWaiting)
+                .isParking(isParking)
                 .memberId(memberId)
                 .build();
     }

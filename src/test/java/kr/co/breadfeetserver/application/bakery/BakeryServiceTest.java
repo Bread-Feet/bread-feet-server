@@ -6,7 +6,6 @@ import static kr.co.breadfeetserver.fixture.BakeryFixture.aBakeryCreateRequest;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.List;
@@ -74,6 +73,10 @@ class BakeryServiceTest {
                 "010-9876-5432",
                 "10:00 - 22:00",
                 "New Best Bread",
+                true,
+                true,
+                true,
+                true,
                 List.of(new SingleMenuUpdateRequest("Updated Menu", 9999, "updated.menu.url"))
         );
 
@@ -92,7 +95,7 @@ class BakeryServiceTest {
 
         // When
         bakeryService.updateBakery(memberId, request);
-        
+
         // Then
         assertThat(bakery.getName()).isEqualTo(request.name());
         assertThat(bakery.getImageUrl()).isEqualTo(request.imageUrl());

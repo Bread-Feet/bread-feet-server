@@ -63,7 +63,11 @@ public class BakeryService {
                 request.imageUrl(),
                 request.phoneNumber(),
                 request.businessHours(),
-                request.bestBread()
+                request.bestBread(),
+                request.isDrink(),
+                request.isEatIn(),
+                request.isWaiting(),
+                request.isParking()
         );
     }
 }

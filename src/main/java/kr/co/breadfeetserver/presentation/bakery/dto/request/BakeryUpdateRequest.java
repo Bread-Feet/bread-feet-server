@@ -13,6 +13,10 @@ public record BakeryUpdateRequest(
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
+        boolean isDrink,
+        boolean isEatIn,
+        boolean isWaiting,
+        boolean isParking,
         List<SingleMenuUpdateRequest> menus
 ) {
 
@@ -23,6 +27,10 @@ public record BakeryUpdateRequest(
                 .phoneNumber(phoneNumber)
                 .businessHours(businessHours)
                 .bestBread(bestBread)
+                .isDrink(isDrink)
+                .isEatIn(isEatIn)
+                .isWaiting(isWaiting)
+                .isParking(isParking)
                 .memberId(memberId)
                 .build();
     }

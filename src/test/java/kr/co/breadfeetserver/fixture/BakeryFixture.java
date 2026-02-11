@@ -61,6 +61,10 @@ public class BakeryFixture {
                 phoneNumber,
                 businessHours,
                 bestBread,
+                true,
+                true,
+                true,
+                true,
                 createMenus
         );
     }
@@ -74,6 +78,10 @@ public class BakeryFixture {
                 phoneNumber,
                 businessHours,
                 bestBread,
+                true,
+                true,
+                true,
+                true,
                 updateMenus
         );
     }
