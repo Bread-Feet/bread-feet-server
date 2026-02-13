@@ -98,7 +98,6 @@ aws:
     region: ${AWS_REGION}
     access-key: ${AWS_ACCESS_KEY}
     secret-key: ${AWS_SECRET_KEY}
-    pre-signed-url-expiration-minutes: ${S3_PRESIGNED_URL_EXPIRATION_MINUTES}
 
 jwt:
   secret-key: ${JWT_SECRET}

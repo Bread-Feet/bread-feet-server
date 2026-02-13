@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import java.util.Collections;
 import java.util.List;
 import kr.co.breadfeetserver.domain.menu.MenuJpaRepository;
+import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.SingleMenuCreateRequest;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.SingleMenuUpdateRequest;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +17,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,8 +39,8 @@ class MenuServiceTest {
         // Given
         Long bakeryId = 1L;
         List<SingleMenuCreateRequest> menuRequests = List.of(
-                new SingleMenuCreateRequest("빵1", 1000, "url1"),
-                new SingleMenuCreateRequest("빵2", 2000, "url2")
+                new SingleMenuCreateRequest("빵1", 1000, "url1", false),
+                new SingleMenuCreateRequest("빵2", 2000, "url2", false)
         );
         MenuCreateCommand command = new MenuCreateCommand(bakeryId, menuRequests);
 
@@ -70,8 +70,8 @@ class MenuServiceTest {
         // Given
         Long bakeryId = 1L;
         List<SingleMenuUpdateRequest> menuRequests = List.of(
-                new SingleMenuUpdateRequest("새빵1", 1500, "url1"),
-                new SingleMenuUpdateRequest("새빵2", 2500, "url2")
+                new SingleMenuUpdateRequest("새빵1", 1500, "url1", false),
+                new SingleMenuUpdateRequest("새빵2", 2500, "url2", false)
         );
         MenuUpdateCommand command = new MenuUpdateCommand(bakeryId, menuRequests);
 

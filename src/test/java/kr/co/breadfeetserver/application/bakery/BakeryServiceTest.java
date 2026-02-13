@@ -77,7 +77,8 @@ class BakeryServiceTest {
                 true,
                 true,
                 true,
-                List.of(new SingleMenuUpdateRequest("Updated Menu", 9999, "updated.menu.url"))
+                List.of(new SingleMenuUpdateRequest("Updated Menu", 9999, "updated.menu.url",
+                        false))
         );
 
         Bakery bakery = Bakery.builder()

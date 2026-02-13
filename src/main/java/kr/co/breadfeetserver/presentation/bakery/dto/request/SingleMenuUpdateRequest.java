@@ -13,7 +13,8 @@ public record SingleMenuUpdateRequest(
         @NotNull(message = "가격은 필수입니다.")
         @Positive(message = "가격은 양수여야 합니다.")
         Integer price,
-        String thumbnailUrl
+        String thumbnailUrl,
+        boolean isRepresentation
 ) {
 
     public Menu toEntity(Long bakeryId) {
@@ -22,6 +23,7 @@ public record SingleMenuUpdateRequest(
                 .name(name)
                 .price(price)
                 .thumbnailUrl(thumbnailUrl)
+                .isRepresentation(isRepresentation)
                 .build();
     }
 }

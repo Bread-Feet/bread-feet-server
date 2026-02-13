@@ -35,6 +35,9 @@ public class Menu extends BaseTimeEntity {
     @Column(name = "thumbnail_url", nullable = false)
     private String thumbnailUrl;
 
+    @Column(name = "is_representation", nullable = false)
+    private boolean isRepresentation;
+
     @Column(name = "bakery_id", nullable = false)
     private Long bakeryId;
 }
