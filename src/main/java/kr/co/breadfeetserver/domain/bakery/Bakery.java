@@ -49,16 +49,16 @@ public class Bakery extends BaseTimeEntity {
     private String bestBread;
 
     @Column(name = "is_drink")
-    private boolean isDrink;
+    private Boolean isDrink;
 
     @Column(name = "is_eat_in")
-    private boolean isEatIn;
+    private Boolean isEatIn;
 
     @Column(name = "is_waiting")
-    private boolean isWaiting;
+    private Boolean isWaiting;
 
     @Column(name = "is_parking")
-    private boolean isParking;
+    private Boolean isParking;
 
     @Column(name = "x_coordinate")
     private Double xCoordinate;

@@ -12,10 +12,10 @@ public record BakeryCreateRequest(
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
-        boolean isDrink,
-        boolean isEatIn,
-        boolean isWaiting,
-        boolean isParking,
+        Boolean isDrink,
+        Boolean isEatIn,
+        Boolean isWaiting,
+        Boolean isParking,
         List<SingleMenuCreateRequest> menus
 ) {
 
