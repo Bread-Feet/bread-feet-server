@@ -32,18 +32,8 @@ public enum ErrorCode {
     MEDIA_NOT_FOUND(HttpStatus.NOT_FOUND, "미디어를 찾을 수 없습니다."),
 
     // storage 관련 에러
-    STORAGE_FILE_EMPTY(HttpStatus.BAD_REQUEST, "파일이 비어있습니다."),
-    STORAGE_FILE_INVALID_NAME(HttpStatus.BAD_REQUEST, "파일명이 유효하지 않습니다."),
-    STORAGE_FILE_INVALID_EXTENSION(HttpStatus.BAD_REQUEST, "허용되지 않은 파일 확장자입니다."),
-    STORAGE_FILE_SIZE_EXCEEDED(HttpStatus.BAD_REQUEST, "파일 크기가 제한을 초과했습니다."),
-    STORAGE_FILE_INVALID_TYPE(HttpStatus.BAD_REQUEST, "파일의 MIME 타입을 확인할 수 없습니다."),
-    STORAGE_FILE_CORRUPTED(HttpStatus.BAD_REQUEST, "파일이 손상되었거나 유효하지 않습니다."),
-    STORAGE_FILE_FORGED(HttpStatus.BAD_REQUEST, "파일 형식이 확장자와 일치하지 않습니다."),
-    STORAGE_FILE_VALIDATION_FAILED(HttpStatus.BAD_REQUEST, "파일 검증 중 오류가 발생했습니다."),
-    STORAGE_FILE_UPLOAD_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다."),
-    STORAGE_FILE_DELETE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "파일 삭제에 실패했습니다."),
-    STORAGE_FILE_NOT_FOUND(HttpStatus.NOT_FOUND, "파일을 찾을 수 없습니다."),
-    STORAGE_DIRECTORY_CREATE_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "디렉토리 생성에 실패했습니다."),
+    WRONG_FOLDER_TYPE(HttpStatus.BAD_REQUEST, "잘못된 폴더명 입니다."),
+    NOTFOUND_FILE_NAME(HttpStatus.BAD_REQUEST, "파일 이름이 존재하지 않습니다."),
 
     // 인증 관련 에러
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
