@@ -10,6 +10,7 @@ public enum ErrorCode {
 
     //리뷰 관련 에러
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "리뷰를 찾을 수 없습니다."),
+    REVIEW_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요 누른 리뷰입니다."),
     // 다이어리 관련 에러
     DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "다이어리를 찾을 수 없습니다."),
     // 유저 관련 에러

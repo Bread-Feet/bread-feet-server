@@ -1,13 +1,8 @@
 package kr.co.breadfeetserver.domain.review;
 
 import jakarta.persistence.*;
-import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
-import kr.co.breadfeetserver.domain.member.Member;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
