@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record DiaryUpdateRequest(
-        @IsEssential long diaryId,
         @IsEssential Boolean isPublic,
         @IsEssential AddressUpdateRequest address,
         @IsEssential String thumbnail,
