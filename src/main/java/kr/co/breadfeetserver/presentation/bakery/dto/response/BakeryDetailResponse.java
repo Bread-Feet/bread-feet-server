@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.presentation.bakery.dto.response;
 
+import java.util.List;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 import kr.co.breadfeetserver.presentation.annotation.PhoneNumberPattern;
@@ -11,10 +12,11 @@ public record BakeryDetailResponse(
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         Long reviewCount,
-        Double averageRating
+        Double averageRating,
+        List<MenuDetailResponse> menus
 ) {
 
-    public static BakeryDetailResponse from(Bakery bakery) {
+    public static BakeryDetailResponse from(Bakery bakery, List<MenuDetailResponse> menus) {
         return new BakeryDetailResponse(
                 bakery.getName(),
                 AddressResponse.of(
@@ -26,7 +28,8 @@ public record BakeryDetailResponse(
                 bakery.getPhoneNumber(),
                 bakery.getBusinessHours(),
                 0L,
-                0.0
+                0.0,
+                menus
         );
     }
 }

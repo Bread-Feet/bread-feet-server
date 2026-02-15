@@ -19,27 +19,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/bakeries")
-public class BakeryController {
+public class BakeryController implements BakeryControllerDocs {
 
     private final BakeryService bakeryService;
 
     @PostMapping
-    public ResponseEntity<ApiResponseWrapper<Long>> createBakery(
-            @Memberid long memberId,
+    public ResponseEntity<ApiResponseWrapper<Void>> createBakery(
+            @Memberid Long memberId,
             @RequestBody BakeryCreateRequest request) {
-        Long bakeryId = bakeryService.createBakery(memberId, request);
+        bakeryService.createBakery(memberId, request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponseWrapper.success(HttpStatus.CREATED, bakeryId));
+                .body(ApiResponseWrapper.success(HttpStatus.CREATED, "빵집 생성 성공"));
     }
 
-    @PutMapping("/{bakeryId}")
+    @PutMapping
     public ResponseEntity<ApiResponseWrapper<Void>> updateBakery(
-            @Memberid long memberId,
-            @PathVariable Long bakeryId,
+            @Memberid Long memberId,
             @RequestBody BakeryUpdateRequest request) {
-        bakeryService.updateBakery(memberId, bakeryId, request);
+        bakeryService.updateBakery(memberId, request);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -48,7 +47,7 @@ public class BakeryController {
 
     @DeleteMapping("/{bakeryId}")
     public ResponseEntity<ApiResponseWrapper<Void>> deleteBakery(
-            @Memberid long memberId,
+            @Memberid Long memberId,
             @PathVariable Long bakeryId) {
         bakeryService.deleteBakery(memberId, bakeryId);
 

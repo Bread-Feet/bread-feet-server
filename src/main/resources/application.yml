@@ -92,6 +92,13 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
 
+aws:
+  s3:
+    bucket-name: ${AWS_BUCKET_NAME}
+    region: ${AWS_REGION}
+    access-key: ${AWS_ACCESS_KEY}
+    secret-key: ${AWS_SECRET_KEY}
+
 jwt:
   secret-key: ${JWT_SECRET}
   expiration-time: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}

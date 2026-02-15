@@ -1,6 +1,6 @@
 package kr.co.breadfeetserver.presentation.bakery.dto.request;
 
-import kr.co.breadfeetserver.domain.bakery.Bakery;
+import java.util.List;
 import kr.co.breadfeetserver.presentation.annotation.IsEssential;
 import kr.co.breadfeetserver.presentation.annotation.PhoneNumberPattern;
 
@@ -12,20 +12,11 @@ public record BakeryUpdateRequest(
         @PhoneNumberPattern String phoneNumber,
         String businessHours,
         String bestBread,
-        Double xCoordinate,
-        Double yCoordinate
+        Boolean isDrink,
+        Boolean isEatIn,
+        Boolean isWaiting,
+        Boolean isParking,
+        List<SingleMenuUpdateRequest> menus
 ) {
 
-    public Bakery toEntity(Long memberId) {
-        return Bakery.builder()
-                .name(name)
-                .address(address.toEntity())
-                .phoneNumber(phoneNumber)
-                .businessHours(businessHours)
-                .bestBread(bestBread)
-                .xCoordinate(xCoordinate)
-                .yCoordinate(yCoordinate)
-                .memberId(memberId)
-                .build();
-    }
 }

@@ -1,5 +1,8 @@
 package kr.co.breadfeetserver.application.bakery;
 
+import kr.co.breadfeetserver.application.menu.MenuCreateCommand;
+import kr.co.breadfeetserver.application.menu.MenuService;
+import kr.co.breadfeetserver.application.menu.MenuUpdateCommand;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
@@ -16,20 +19,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class BakeryService {
 
     private final BakeryJpaRepository bakeryJpaRepository;
+    private final MenuService menuService;
 
-    public Long createBakery(long memberId, BakeryCreateRequest request) {
+    @Transactional
+    public void createBakery(long memberId, BakeryCreateRequest request) {
         if (bakeryJpaRepository.existsByAddress_LotNumber(request.address().lotNumber())) {
             throw new BreadFeetBusinessException(ErrorCode.BAKERY_ALREADY_EXISTS);
         }
 
-        return bakeryJpaRepository.save(request.toEntity(memberId)).getId();
+        final Bakery bakery = bakeryJpaRepository.save(request.toEntity(memberId));
+
+        menuService.createMenu(new MenuCreateCommand(bakery.getId(), request.menus()));
     }
 
-    public void updateBakery(long memberId, Long bakeryId, BakeryUpdateRequest request) {
-        Bakery bakery = bakeryJpaRepository.findById(bakeryId)
+    public void updateBakery(long memberId, BakeryUpdateRequest request) {
+        Bakery bakery = bakeryJpaRepository.findById(request.bakeryId())
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.BAKERY_NOT_FOUND));
 
+        if (!bakery.getMemberId().equals(memberId)) {
+            throw new BreadFeetBusinessException(ErrorCode.USER_NOT_ACCESS_FORBIDDEN);
+        }
+
         bakeryUpdateRequestToEntity(bakery, request);
+
+        menuService.updateMenu(new MenuUpdateCommand(request.bakeryId(), request.menus()));
     }
 
     public void deleteBakery(long memberId, Long bakeryId) {
@@ -51,8 +64,10 @@ public class BakeryService {
                 request.phoneNumber(),
                 request.businessHours(),
                 request.bestBread(),
-                request.xCoordinate(),
-                request.yCoordinate()
+                request.isDrink(),
+                request.isEatIn(),
+                request.isWaiting(),
+                request.isParking()
         );
     }
 }

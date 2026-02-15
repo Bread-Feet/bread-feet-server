@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.application.bakery;
 
+import kr.co.breadfeetserver.application.menu.MenuQueryService;
 import kr.co.breadfeetserver.application.support.CursorService;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.domain.bakery.query.BakeryQueryRepository;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BakeryQueryService {
 
     private final BakeryQueryRepository bakeryJdbcRepository;
+    private final MenuQueryService menuQueryService;
     private final CursorService cursorService;
 
     public CursorResponse<BakeryListResponse> getBakeryList(BakeryCursorCommand command) {
@@ -31,6 +33,10 @@ public class BakeryQueryService {
     public BakeryDetailResponse getBakery(Long bakeryId) {
         Bakery bakery = bakeryJdbcRepository.findById(bakeryId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.BAKERY_NOT_FOUND));
-        return BakeryDetailResponse.from(bakery);
+
+        return BakeryDetailResponse.from(
+                bakery,
+                menuQueryService.getMenu(bakeryId)
+        );
     }
 }

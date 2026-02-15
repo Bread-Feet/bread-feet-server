@@ -3,12 +3,10 @@ package kr.co.breadfeetserver.presentation.bakery;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,8 +60,7 @@ class BakeryControllerTest {
     @DisplayName("빵집_생성_성공")
     void 빵집_생성_성공() throws Exception {
         // Given
-        when(bakeryService.createBakery(anyLong(), any(BakeryCreateRequest.class))).thenReturn(
-                bakeryId);
+        doNothing().when(bakeryService).createBakery(anyLong(), any(BakeryCreateRequest.class));
 
         // When & Then
         mockMvc.perform(post("/api/v1/bakeries")
@@ -71,7 +68,6 @@ class BakeryControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(bakeryCreateRequest)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.data").value(bakeryId))
                 .andDo(print());
     }
 
@@ -80,7 +76,7 @@ class BakeryControllerTest {
     void 빵집_수정_성공() throws Exception {
         // Given
         doNothing().when(bakeryService)
-                .updateBakery(anyLong(), anyLong(), any(BakeryUpdateRequest.class));
+                .updateBakery(anyLong(), any(BakeryUpdateRequest.class));
 
         // When & Then
         mockMvc.perform(put("/api/v1/bakeries/{id}", bakeryId)

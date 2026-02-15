@@ -48,13 +48,23 @@ public class Bakery extends BaseTimeEntity {
     @Column(name = "best_bread")
     private String bestBread;
 
+    @Column(name = "is_drink")
+    private Boolean isDrink;
+
+    @Column(name = "is_eat_in")
+    private Boolean isEatIn;
+
+    @Column(name = "is_waiting")
+    private Boolean isWaiting;
+
+    @Column(name = "is_parking")
+    private Boolean isParking;
+
     @Column(name = "x_coordinate")
     private Double xCoordinate;
 
     @Column(name = "y_coordinate")
     private Double yCoordinate;
-
-    private Boolean deleted;
 
     @Column(name = "member_id")
     private Long memberId;
@@ -66,8 +76,10 @@ public class Bakery extends BaseTimeEntity {
             String phoneNumber,
             String businessHours,
             String bestBread,
-            Double xCoordinate,
-            Double yCoordinate
+            boolean isDrink,
+            boolean isEatIn,
+            boolean isWaiting,
+            boolean isParking
     ) {
         this.name = name;
         this.address = address;
@@ -75,7 +87,9 @@ public class Bakery extends BaseTimeEntity {
         this.phoneNumber = phoneNumber;
         this.businessHours = businessHours;
         this.bestBread = bestBread;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
+        this.isDrink = isDrink;
+        this.isEatIn = isEatIn;
+        this.isWaiting = isWaiting;
+        this.isParking = isParking;
     }
 }

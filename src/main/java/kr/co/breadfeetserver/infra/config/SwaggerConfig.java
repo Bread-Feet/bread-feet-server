@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SwaggerConfig {
+
     private final List<Server> servers = List.of(
-            new Server().url("https://api.breadfeet.co.kr/api/v1")
+            new Server().url("https://api.breadfeet.co.kr")
                     .description("BREAD FEET SERVER"),
             new Server().url("http://localhost:8080/api/v1")
                     .description("로컬 환경")
@@ -34,7 +35,8 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public OpenAPI customOpenAPI(SecurityScheme securityScheme, SecurityRequirement securityRequirement) {
+    public OpenAPI customOpenAPI(SecurityScheme securityScheme,
+            SecurityRequirement securityRequirement) {
         return new OpenAPI()
                 .info(new Info()
                         .title("Bread Feet API 문서")
