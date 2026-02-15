@@ -58,6 +58,30 @@ public class DiaryService {
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
         diaryUpdateRequestToEntity(diary, request);
+
+        hashtagJpaRepository.deleteAllByDiaryId(diaryId);
+        if (!CollectionUtils.isEmpty(request.hashtags())) {
+            request.hashtags().forEach(hashtag ->
+                    hashtagJpaRepository.save(
+                            Hashtag.builder()
+                                    .name(hashtag)
+                                    .diaryId(diaryId)
+                                    .build()
+                    )
+            );
+        }
+
+        pictureUrlJpaRepository.deleteAllByDiaryId(diaryId);
+        if (!CollectionUtils.isEmpty(request.pictureUrls())) {
+            request.pictureUrls().forEach(pictureUrl ->
+                    pictureUrlJpaRepository.save(
+                            PictureUrl.builder()
+                                    .pic_url(pictureUrl)
+                                    .diaryId(diaryId)
+                                    .build()
+                    )
+            );
+        }
     }
 
     public void deleteDiary(long memberId, Long diaryId){
