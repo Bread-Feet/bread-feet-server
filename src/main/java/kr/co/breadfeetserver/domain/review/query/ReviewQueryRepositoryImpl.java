@@ -70,7 +70,7 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("bakeryId", bakeryId);
         params.addValue("memberId", memberId);
-        params.addValue("cursorId", command.cursorId() == 0 ? Long.MAX_VALUE : command.cursorId());
+        params.addValue("cursorId", command.cursorId() == null ? Long.MAX_VALUE : command.cursorId());
         params.addValue("size", command.size() + 1);
 
         List<ReviewListResponse> reviews = namedParameterJdbcTemplate.query(sql, params, new ReviewListResponseRowMapper());
