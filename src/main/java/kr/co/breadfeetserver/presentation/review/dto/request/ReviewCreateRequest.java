@@ -13,7 +13,7 @@ public record ReviewCreateRequest(
         @IsEssential String content,
         @Min(0) @Max(5)
         double rating,
-        List<String> reviewpictureUrls
+        List<String> reviewPictureUrls
 ){
     public Review toEntity(Long memberId){
         return Review.builder()

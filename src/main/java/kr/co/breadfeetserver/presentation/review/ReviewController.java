@@ -4,8 +4,6 @@ import jakarta.validation.Valid;
 import kr.co.breadfeetserver.application.review.ReviewService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
 import kr.co.breadfeetserver.presentation.annotation.Memberid;
-import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
-import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
 import kr.co.breadfeetserver.presentation.review.dto.request.ReviewCreateRequest;
 import kr.co.breadfeetserver.presentation.review.dto.request.ReviewUpdateRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,7 @@ public class ReviewController {
 
     @PostMapping
     public ResponseEntity<ApiResponseWrapper<Long>> createReview(
-            @RequestBody ReviewCreateRequest request,
+            @Valid @RequestBody ReviewCreateRequest request,
             @Memberid Long memberId) {
         Long reviewId = reviewService.createReview(memberId,request);
 
@@ -35,7 +33,7 @@ public class ReviewController {
     public ResponseEntity<ApiResponseWrapper<Void>> updateReview(
             @Memberid Long memberId,
             @PathVariable Long reviewId,
-            @RequestBody ReviewUpdateRequest request) {
+            @Valid @RequestBody ReviewUpdateRequest request) {
         reviewService.updateReview(memberId, reviewId, request);
 
         return ResponseEntity

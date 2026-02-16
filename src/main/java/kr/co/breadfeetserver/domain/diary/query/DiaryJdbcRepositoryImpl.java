@@ -65,6 +65,6 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
             return "";
         }
         params.addValue("cursor", cursor);
-        return "AND d.diary_id >= :cursor\n";
+        return "AND d.diary_id < :cursor\n";
     }
 }

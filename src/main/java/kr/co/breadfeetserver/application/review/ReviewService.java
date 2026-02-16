@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.application.review;
 
+import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
 import kr.co.breadfeetserver.domain.member.MemberJpaRepository;
 import kr.co.breadfeetserver.domain.review.Review;
 import kr.co.breadfeetserver.domain.review.ReviewJpaRepository;
@@ -22,16 +23,20 @@ public class ReviewService {
     private final ReviewJpaRepository reviewJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final ReviewPictureUrlJpaRepository reviewPictureUrlJpaRepository;
+    private final BakeryJpaRepository bakeryJpaRepository;
 
     public Long createReview(Long memberId,ReviewCreateRequest request) {
         memberJpaRepository.findById(memberId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.USER_NOT_FOUND));
 
+        bakeryJpaRepository.findById(request.bakeryId())
+                .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.BAKERY_NOT_FOUND));
+
         Review review = reviewJpaRepository.save(request.toEntity(memberId));
         Long reviewId = review.getId();
 
-        if (!CollectionUtils.isEmpty(request.reviewpictureUrls())) {
-            request.reviewpictureUrls().forEach(pictureUrl ->
+        if (!CollectionUtils.isEmpty(request.reviewPictureUrls())) {
+            request.reviewPictureUrls().forEach(pictureUrl ->
                     reviewPictureUrlJpaRepository.save(
                             ReviewPictureUrl.builder()
                                     .pic_url(pictureUrl)
@@ -48,7 +53,7 @@ public class ReviewService {
         Review review = reviewJpaRepository.findById(reviewId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.REVIEW_NOT_FOUND));
 
-        if(review.getMemberId() != memberId){
+        if(!review.getMemberId().equals(memberId)){
             throw new BreadFeetBusinessException(ErrorCode.USER_NOT_ACCESS_FORBIDDEN);
         }
 

@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.application.reviewlike;
 
+import kr.co.breadfeetserver.domain.review.ReviewJpaRepository;
 import kr.co.breadfeetserver.domain.reviewlike.ReviewLike;
 import kr.co.breadfeetserver.domain.reviewlike.ReviewLikeJpaRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
@@ -13,16 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ReviewLikeService {
+
     private final ReviewLikeJpaRepository reviewlikeJpaRepository;
+    private final ReviewJpaRepository reviewJpaRepository;
 
     @Transactional
     public void createLike(Long memberId, ReviewLikeCreateRequest request) {
-        try {
-            ReviewLike reviewlike = request.toEntity(memberId);
-            reviewlikeJpaRepository.save(reviewlike);
-        } catch (DataIntegrityViolationException e) {
+        if (!reviewJpaRepository.existsById(request.reviewId())) {
+            throw new BreadFeetBusinessException(ErrorCode.REVIEW_NOT_FOUND);
+        }
+
+        if (reviewlikeJpaRepository.existsByMemberIdAndReviewId(memberId, request.reviewId())) {
             throw new BreadFeetBusinessException(ErrorCode.REVIEW_LIKE_ALREADY_EXISTS);
         }
+        reviewlikeJpaRepository.save(request.toEntity(memberId));
     }
 
     @Transactional

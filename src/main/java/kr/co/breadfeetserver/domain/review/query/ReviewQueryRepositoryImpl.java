@@ -3,6 +3,7 @@ package kr.co.breadfeetserver.domain.review.query;
 import kr.co.breadfeetserver.presentation.review.dto.request.ReviewCursorCommand;
 import kr.co.breadfeetserver.presentation.review.dto.response.ReviewGetResponse;
 import kr.co.breadfeetserver.presentation.review.dto.response.ReviewListResponse;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
@@ -46,7 +47,7 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
 
         try {
             return Optional.ofNullable(namedParameterJdbcTemplate.queryForObject(sql, params, new ReviewGetResponseRowMapper()));
-        } catch (Exception e) {
+        } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
         }
     }

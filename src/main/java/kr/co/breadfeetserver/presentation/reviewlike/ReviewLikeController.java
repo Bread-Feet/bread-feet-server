@@ -21,7 +21,8 @@ public class ReviewLikeController {
             @Memberid Long memberId,
             @Valid @RequestBody ReviewLikeCreateRequest request) {
         reviewlikeService.createLike(memberId, request);
-        return ResponseEntity.ok(ApiResponseWrapper.success(HttpStatus.CREATED, "좋아요 등록 성공"));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponseWrapper.success(HttpStatus.CREATED,"좋아요 등록 성공"));
     }
 
     @DeleteMapping("/{reviewId}/likes")

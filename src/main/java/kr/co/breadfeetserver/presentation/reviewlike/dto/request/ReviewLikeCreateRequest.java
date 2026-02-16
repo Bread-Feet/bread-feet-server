@@ -6,7 +6,7 @@ import kr.co.breadfeetserver.domain.reviewlike.ReviewLike;
 
 @Schema(description = "좋아요 생성 요청 DTO")
 public record ReviewLikeCreateRequest(
-        @Schema(description = "게시글 ID", example = "1")
+        @Schema(description = "리뷰 ID", example = "1")
         @NotNull
         Long reviewId
 ) {
