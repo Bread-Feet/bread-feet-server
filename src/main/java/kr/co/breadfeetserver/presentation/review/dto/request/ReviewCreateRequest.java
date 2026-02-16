@@ -12,7 +12,7 @@ public record ReviewCreateRequest(
         @NotNull Long bakeryId,
         @IsEssential String content,
         @Min(0) @Max(5)
-        double rating,
+        Double rating,
         List<String> reviewPictureUrls
 ){
     public Review toEntity(Long memberId){
