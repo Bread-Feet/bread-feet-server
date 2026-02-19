@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.infra.config;
 
+import kr.co.breadfeetserver.global.auth.PublicPaths;
 import kr.co.breadfeetserver.global.interceptor.JwtInterceptor;
 import kr.co.breadfeetserver.global.resolver.MemberIdArgumentResolver;
 import lombok.RequiredArgsConstructor;
@@ -26,18 +27,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/login/**",
-                        "/oauth/**",
-                        "/css/**", "/js/**",
-                        "/favicon.ico",
-                        "/error",
-                        "/swagger",
-                        "/swagger-ui/**",
-                        "/swagger-resources/**",
-                        "/api-docs/json/**",
-                        "/v3/api-docs/**",
-                        "/webjars/**"
-                );
+                .excludePathPatterns(PublicPaths.all());
     }
 }
