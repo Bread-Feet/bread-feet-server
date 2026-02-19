@@ -67,7 +67,7 @@ public class ReviewService {
         if (!review.getMemberId().equals(memberId)) {
             throw new BreadFeetBusinessException(ErrorCode.USER_NOT_ACCESS_FORBIDDEN);
         }
-
+        reviewPictureUrlJpaRepository.deleteAllByReviewId(reviewId);
         reviewJpaRepository.delete(review);
     }
 
