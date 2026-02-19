@@ -17,7 +17,19 @@ import org.springframework.stereotype.Repository;
 public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
 
     private static final BakeryRowMapper ROW_MAPPER = new BakeryRowMapper();
-    private static final String BAKERY_SELECT = "SELECT * FROM bakery";
+    private static final String BAKERY_SELECT = """
+            SELECT
+                b.bakery_id,
+                b.name,
+                b.detail,
+                b.lot_number,
+                b.road_address,
+                b.image_url,
+                COUNT(DISTINCT r.review_id)  AS review_count,
+                COALESCE(AVG(r.rating), 0.0) AS average_rating
+            FROM bakery b
+            LEFT JOIN review r ON b.bakery_id = r.bakery_id
+            """;
     private final NamedParameterJdbcTemplate jdbc;
 
     @Override
@@ -25,10 +37,11 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("size", command.size() + 1);
 
-        String sql = BAKERY_SELECT + "\n"
-                + "WHERE deleted_at IS NULL\n"
+        String sql = BAKERY_SELECT
+                + "WHERE b.deleted_at IS NULL\n"
                 + createCursorCondition(command.cursor(), params)
-                + "ORDER BY bakery_id DESC\n"
+                + "GROUP BY b.bakery_id\n"
+                + "ORDER BY b.bakery_id DESC\n"
                 + "LIMIT :size";
 
         List<BakeryListResponse> bakeries = jdbc.query(sql, params, ROW_MAPPER);
@@ -46,6 +59,6 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
             return "";
         }
         params.addValue("cursor", cursor);
-        return "AND bakery_id > :cursor\n";
+        return "AND b.bakery_id < :cursor\n";
     }
 }
