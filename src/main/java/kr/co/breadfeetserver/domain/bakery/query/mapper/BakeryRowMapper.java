@@ -21,9 +21,8 @@ public class BakeryRowMapper implements RowMapper<BakeryListResponse> {
             rs.getString("name"),
             address,
             rs.getString("image_url"),
-            //TODO: 집계쿼리 추가. 현재는 임시 값 사용.
-            0L,
-            0.0
+            rs.getLong("review_count"),
+            rs.getDouble("average_rating")
         );
     }
 }
