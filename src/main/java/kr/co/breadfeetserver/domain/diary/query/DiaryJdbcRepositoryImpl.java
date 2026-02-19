@@ -37,6 +37,7 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 picture_url p ON d.diary_id = p.diary_id
             WHERE
                 d.deleted_at IS NULL
+                AND d.ispublic = true
             """;
 
     private final NamedParameterJdbcTemplate jdbc;
