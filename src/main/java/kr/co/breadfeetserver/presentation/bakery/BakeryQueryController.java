@@ -22,7 +22,7 @@ public class BakeryQueryController {
 
     @GetMapping
     public ResponseEntity<ApiResponseWrapper<CursorResponse<BakeryListResponse>>> getBakeryList(
-            @RequestParam(defaultValue = "0") Long cursor,
+            @RequestParam(required = false) Long cursor,
             @RequestParam(defaultValue = "10") int size
     ) {
         BakeryCursorCommand command = new BakeryCursorCommand(cursor, size);
