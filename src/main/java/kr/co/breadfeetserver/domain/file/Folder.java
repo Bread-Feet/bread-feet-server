@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 public enum Folder {
+    TEMP("temp"),
     BAKERY("bakery"),
     REVIEW("review"),
     DIARY("diary");
@@ -18,7 +19,7 @@ public enum Folder {
 
     public static Folder validate(String folderName) {
         for (Folder folder : Folder.values()) {
-            if (folder.name().equals(folderName)) {
+            if (folder.name().equalsIgnoreCase(folderName)) {
                 return folder;
             }
         }
