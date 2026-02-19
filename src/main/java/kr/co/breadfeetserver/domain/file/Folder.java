@@ -6,14 +6,9 @@ import lombok.Getter;
 
 @Getter
 public enum Folder {
-    EVENT("event"),
-    FAQ("faq"),
-    NOTICE("notice"),
-    TEMP("temp"),
-    INQUIRY("inquiry"),
-    INQUIRY_ANSWER("inquiryAnswer"),
-    ADMISSION_TICKET_IMAGE("admissionTicket/images"),
-    ADMISSION_TICKET_PDF("admissionTicket/pdfs");
+    BAKERY("bakery"),
+    REVIEW("review"),
+    DIARY("diary");
 
     private final String path;
 
