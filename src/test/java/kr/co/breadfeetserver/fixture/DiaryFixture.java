@@ -34,7 +34,6 @@ public class DiaryFixture {
     public static DiaryCreateRequest aDiaryCreateRequest(List<String> hashtags, List<String> pictureUrls) {
         return new DiaryCreateRequest(
                 isPublic,
-                5, // Assuming a default score for tests
                 address(),
                 thumbnailUrl,
                 visitDate,
@@ -48,7 +47,6 @@ public class DiaryFixture {
         return new DiaryUpdateRequest(
                 diaryId,
                 isPublic,
-                5, // Assuming a default score for tests
                 addressUpdateRequest(),
                 thumbnailUrl,
                 visitDate,

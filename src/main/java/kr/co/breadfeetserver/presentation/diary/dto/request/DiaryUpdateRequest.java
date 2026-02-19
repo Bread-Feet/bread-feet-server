@@ -18,7 +18,6 @@ public record DiaryUpdateRequest(
         List<String> hashtags,
         List<String> pictureUrls
 ) {
-
     public Diary toEntity(Long memberId) {
         return Diary.builder()
                 .isPublic(isPublic)
