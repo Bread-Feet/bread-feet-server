@@ -96,7 +96,11 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
         if (keyword == null || keyword.isBlank()) {
             return "";
         }
-        params.addValue("keyword", "%" + keyword + "%");
-        return "AND b.name LIKE :keyword\n";
+        String escaped = keyword
+                .replace("\\", "\\\\")
+                .replace("%", "\\%")
+                .replace("_", "\\_");
+        params.addValue("keyword", "%" + escaped + "%");
+        return "AND b.name LIKE :keyword ESCAPE '\\\\'\n";
     }
 }
