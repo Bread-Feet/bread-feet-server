@@ -59,6 +59,7 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
                 "m.nickname, " +
                 "(SELECT COUNT(*) FROM likes rl WHERE rl.review_id = r.review_id) AS like_count, " +
                 "CASE WHEN EXISTS (SELECT 1 FROM likes rl WHERE rl.review_id = r.review_id AND rl.member_id = :memberId) THEN 1 ELSE 0 END AS is_liked, " +
+                "CASE WHEN r.member_id = :memberId THEN true ELSE false END AS is_my_review, " +
                 "(SELECT rpu.pic_url FROM reviewpictureUrl rpu WHERE rpu.review_id = r.review_id ORDER BY rpu.id LIMIT 1) AS thumbnail_url " +
                 "FROM review r " +
                 "JOIN member m ON r.member_id = m.member_id " +
@@ -112,6 +113,7 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
                     rs.getDouble("rating"),
                     rs.getLong("like_count"),
                     rs.getBoolean("is_liked"),
+                    rs.getBoolean("is_my_review"),
                     rs.getString("nickname"),
                     rs.getString("thumbnail_url"),
                     rs.getObject("created_at", LocalDateTime.class)
