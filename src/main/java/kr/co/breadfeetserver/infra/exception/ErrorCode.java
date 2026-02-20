@@ -23,6 +23,7 @@ public enum ErrorCode {
     // 빵집 관련 에러
     BAKERY_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 존재하는 빵집입니다."),
     BAKERY_NOT_FOUND(HttpStatus.NOT_FOUND, "빵집을 찾을 수 없습니다."),
+    BAKERY_ACCESS_DENIED(HttpStatus.FORBIDDEN, "빵집에 대한 접근 권한이 없습니다."),
 
     // 메뉴 관련 에러
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "메뉴를 찾을 수 없습니다."),
