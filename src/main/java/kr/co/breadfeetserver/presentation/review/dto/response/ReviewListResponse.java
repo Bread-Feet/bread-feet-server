@@ -10,6 +10,7 @@ public record ReviewListResponse(
         double rating,
         long likeCount,
         boolean isLiked,
+        boolean isMyReview,
         String nickname,
         String thumbnailUrl,
         LocalDateTime createdAt
