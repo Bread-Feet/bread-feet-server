@@ -2,7 +2,9 @@ package kr.co.breadfeetserver.presentation.bakery;
 
 import kr.co.breadfeetserver.application.bakery.BakeryQueryService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
+import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
+import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryDetailResponse;
 import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryListResponse;
 import kr.co.breadfeetserver.presentation.support.CursorResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,19 @@ public class BakeryQueryController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponseWrapper.success(HttpStatus.OK, "빵집 목록 조회 성공",
+                        response));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponseWrapper<BakeryDetailResponse>> getBakeryDetail(
+            @Memberid Long memberId,
+            @RequestParam Long bakeryId
+    ) {
+        BakeryDetailResponse response = bakeryQueryService.getBakery(memberId, bakeryId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponseWrapper.success(HttpStatus.OK, "빵집 상세 조회 성공",
                         response));
     }
 }

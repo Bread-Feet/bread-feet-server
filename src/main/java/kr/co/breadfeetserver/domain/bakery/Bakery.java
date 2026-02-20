@@ -92,4 +92,8 @@ public class Bakery extends BaseTimeEntity {
         this.isWaiting = isWaiting;
         this.isParking = isParking;
     }
+
+    public boolean equalMemberId(Long memberId) {
+        return this.memberId.equals(memberId);
+    }
 }

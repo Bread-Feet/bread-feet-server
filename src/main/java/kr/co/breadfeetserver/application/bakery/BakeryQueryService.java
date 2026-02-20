@@ -30,9 +30,13 @@ public class BakeryQueryService {
         return cursorService.getCursorResponse(slice);
     }
 
-    public BakeryDetailResponse getBakery(Long bakeryId) {
+    public BakeryDetailResponse getBakery(Long memberId, Long bakeryId) {
         Bakery bakery = bakeryJdbcRepository.findById(bakeryId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.BAKERY_NOT_FOUND));
+
+        if (!bakery.equalMemberId(memberId)) {
+            throw new BreadFeetBusinessException(ErrorCode.BAKERY_ACCESS_DENIED);
+        }
 
         return BakeryDetailResponse.from(
                 bakery,
