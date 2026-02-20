@@ -25,18 +25,18 @@ public class BakeryQueryController {
 
     @GetMapping
     public ResponseEntity<ApiResponseWrapper<CursorResponse<BakeryListResponse>>> getBakeryList(
+            @Memberid(required = false) Long memberId,
             @RequestParam(required = false) Long cursor,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String keyword
     ) {
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, keyword, memberId);
 
-        CursorResponse<BakeryListResponse> response = bakeryQueryService.getBakeryList(
-                command);
+        CursorResponse<BakeryListResponse> response = bakeryQueryService.getBakeryList(command);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponseWrapper.success(HttpStatus.OK, "빵집 목록 조회 성공",
-                        response));
+                .body(ApiResponseWrapper.success(HttpStatus.OK, "빵집 목록 조회 성공", response));
     }
 
     @GetMapping("/{bakeryId}")

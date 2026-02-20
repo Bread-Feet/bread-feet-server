@@ -7,7 +7,9 @@ public record BakeryCursorCommand(
         @Min(0)
         Long cursor,
         @CursorSize
-        int size
+        int size,
+        String keyword,
+        Long memberId
 ) {
 
 }
