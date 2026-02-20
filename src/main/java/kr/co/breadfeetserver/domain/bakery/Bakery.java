@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Objects;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -94,6 +95,6 @@ public class Bakery extends BaseTimeEntity {
     }
 
     public boolean equalMemberId(Long memberId) {
-        return this.memberId.equals(memberId);
+        return Objects.equals(this.memberId, memberId);
     }
 }
