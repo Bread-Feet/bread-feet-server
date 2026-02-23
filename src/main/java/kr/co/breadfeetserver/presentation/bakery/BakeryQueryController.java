@@ -33,7 +33,8 @@ public class BakeryQueryController {
             @RequestParam(defaultValue = "LATEST") SortType sort,
             @RequestParam(required = false, defaultValue = "false") Boolean isMyBakery
     ) {
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, keyword, memberId, sort, isMyBakery);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, keyword, memberId, sort,
+                isMyBakery);
 
         CursorResponse<BakeryListResponse> response = bakeryQueryService.getBakeryList(command);
 
@@ -44,10 +45,9 @@ public class BakeryQueryController {
 
     @GetMapping("/{bakeryId}")
     public ResponseEntity<ApiResponseWrapper<BakeryDetailResponse>> getBakeryDetail(
-            @Memberid Long memberId,
             @PathVariable Long bakeryId
     ) {
-        BakeryDetailResponse response = bakeryQueryService.getBakery(memberId, bakeryId);
+        BakeryDetailResponse response = bakeryQueryService.getBakery(bakeryId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
