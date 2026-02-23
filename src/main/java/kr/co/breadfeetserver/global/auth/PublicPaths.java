@@ -10,6 +10,7 @@ public class PublicPaths {
     };
 
     public static final String[] PUBLIC_API = {
+            "/api/v1/bakeries",
             "/api/v1/bakeries/*",
             "/api/v1/bakery/*/review",
             "/api/v1/diaries"
