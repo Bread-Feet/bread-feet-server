@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import kr.co.breadfeetserver.domain.bakery.query.mapper.BakeryRowMapper;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.SortType;
 import kr.co.breadfeetserver.presentation.bakery.dto.response.AddressResponse;
 import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryListResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +52,7 @@ class BakeryJdbcRepositoryImplTest {
     void findFirstPage() {
         // given
         int size = 5;
-        BakeryCursorCommand command = new BakeryCursorCommand(null, size, null, null);
+        BakeryCursorCommand command = new BakeryCursorCommand(null, size, null, null, SortType.LATEST);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 20; i >= 15; i--) {
@@ -78,7 +79,7 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 16L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null, SortType.LATEST);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 15; i >= 10; i--) {
@@ -105,7 +106,7 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 6L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null, SortType.LATEST);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 5; i >= 1; i--) {
@@ -132,7 +133,7 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 4L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null, SortType.LATEST);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 3; i >= 1; i--) {

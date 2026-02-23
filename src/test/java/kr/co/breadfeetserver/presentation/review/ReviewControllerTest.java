@@ -94,7 +94,7 @@ class ReviewControllerTest {
                 .updateReview(anyLong(), anyLong(), any(ReviewUpdateRequest.class));
 
         // When & Then
-        mockMvc.perform(put("/api/v1/reviews/{reviewId}", reviewId)
+        mockMvc.perform(put("/api/v1/bakery/reviews/{reviewId}", reviewId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(reviewUpdateRequest)))
                 .andDo(print())
@@ -112,7 +112,7 @@ class ReviewControllerTest {
                 .updateReview(anyLong(), anyLong(), any(ReviewUpdateRequest.class));
 
         // When & Then
-        mockMvc.perform(put("/api/v1/reviews/{reviewId}", reviewId)
+        mockMvc.perform(put("/api/v1/bakery/reviews/{reviewId}", reviewId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(reviewUpdateRequest)))
                 .andDo(print())
@@ -130,7 +130,7 @@ class ReviewControllerTest {
                 .updateReview(anyLong(), anyLong(), any(ReviewUpdateRequest.class));
 
         // When & Then
-        mockMvc.perform(put("/api/v1/reviews/{reviewId}", reviewId)
+        mockMvc.perform(put("/api/v1/bakery/reviews/{reviewId}", reviewId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(reviewUpdateRequest)))
                 .andDo(print())
@@ -147,7 +147,7 @@ class ReviewControllerTest {
         doNothing().when(reviewService).deleteReview(anyLong(), anyLong());
 
         // When & Then
-        mockMvc.perform(delete("/api/v1/reviews/{reviewId}", reviewId))
+        mockMvc.perform(delete("/api/v1/bakery/reviews/{reviewId}", reviewId))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value(200))

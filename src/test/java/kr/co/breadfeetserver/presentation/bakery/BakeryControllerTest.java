@@ -79,7 +79,7 @@ class BakeryControllerTest {
                 .updateBakery(anyLong(), any(BakeryUpdateRequest.class));
 
         // When & Then
-        mockMvc.perform(put("/api/v1/bakeries/{id}", bakeryId)
+        mockMvc.perform(put("/api/v1/bakeries")
                         .param("memberId", String.valueOf(memberId))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(bakeryUpdateRequest)))
