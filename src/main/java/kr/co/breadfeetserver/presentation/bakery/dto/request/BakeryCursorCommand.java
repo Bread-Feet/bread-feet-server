@@ -9,7 +9,8 @@ public record BakeryCursorCommand(
         @CursorSize
         int size,
         String keyword,
-        Long memberId
+        Long memberId,
+        SortType sortType
 ) {
 
 }

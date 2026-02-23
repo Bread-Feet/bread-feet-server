@@ -3,6 +3,7 @@ package kr.co.breadfeetserver.domain.bakery.query;
 import java.util.List;
 import kr.co.breadfeetserver.domain.bakery.query.mapper.BakeryRowMapper;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.SortType;
 import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -68,10 +69,10 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
 
         String sql = baseSelect
                 + "WHERE b.deleted_at IS NULL\n"
-                + createCursorCondition(command.cursor(), params)
+                + createCursorCondition(command.cursor(), command.sortType(), params)
                 + createKeywordCondition(command.keyword(), params)
                 + "GROUP BY b.bakery_id\n"
-                + "ORDER BY b.bakery_id DESC\n"
+                + createOrderCondition(command.sortType())
                 + "LIMIT :size";
 
         List<BakeryListResponse> bakeries = jdbc.query(sql, params, ROW_MAPPER);
@@ -84,12 +85,23 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
         return new SliceImpl<>(bakeries, PageRequest.of(0, command.size()), hasNext);
     }
 
-    private String createCursorCondition(Long cursor, MapSqlParameterSource params) {
+    private String createCursorCondition(Long cursor, SortType sortType, MapSqlParameterSource params) {
         if (cursor == null) {
             return "";
         }
         params.addValue("cursor", cursor);
+        if (sortType == SortType.NAME) {
+            return "AND (b.name > (SELECT name FROM bakery WHERE bakery_id = :cursor)\n"
+                    + "  OR (b.name = (SELECT name FROM bakery WHERE bakery_id = :cursor) AND b.bakery_id > :cursor))\n";
+        }
         return "AND b.bakery_id < :cursor\n";
+    }
+
+    private String createOrderCondition(SortType sortType) {
+        if (sortType == SortType.NAME) {
+            return "ORDER BY b.name ASC, b.bakery_id ASC\n";
+        }
+        return "ORDER BY b.bakery_id DESC\n";
     }
 
     private String createKeywordCondition(String keyword, MapSqlParameterSource params) {

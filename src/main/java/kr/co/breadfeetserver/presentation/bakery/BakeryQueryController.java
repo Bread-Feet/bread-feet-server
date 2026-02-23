@@ -4,6 +4,7 @@ import kr.co.breadfeetserver.application.bakery.BakeryQueryService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
 import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
+import kr.co.breadfeetserver.presentation.bakery.dto.request.SortType;
 import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryDetailResponse;
 import kr.co.breadfeetserver.presentation.bakery.dto.response.BakeryListResponse;
 import kr.co.breadfeetserver.presentation.support.CursorResponse;
@@ -28,9 +29,10 @@ public class BakeryQueryController {
             @Memberid(required = false) Long memberId,
             @RequestParam(required = false) Long cursor,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String keyword
+            @RequestParam(required = false) String keyword,
+            @RequestParam(defaultValue = "LATEST") SortType sort
     ) {
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, keyword, memberId);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, keyword, memberId, sort);
 
         CursorResponse<BakeryListResponse> response = bakeryQueryService.getBakeryList(command);
 
