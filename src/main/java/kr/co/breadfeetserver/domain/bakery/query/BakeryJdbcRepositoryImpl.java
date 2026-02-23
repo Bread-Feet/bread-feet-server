@@ -71,6 +71,7 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
                 + "WHERE b.deleted_at IS NULL\n"
                 + createCursorCondition(command.cursor(), command.sortType(), params)
                 + createKeywordCondition(command.keyword(), params)
+                + createMyBakeryCondition(command.isMyBakery(), isAuthenticated)
                 + "GROUP BY b.bakery_id\n"
                 + createOrderCondition(command.sortType())
                 + "LIMIT :size";
@@ -102,6 +103,13 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
             return "ORDER BY b.name ASC, b.bakery_id ASC\n";
         }
         return "ORDER BY b.bakery_id DESC\n";
+    }
+
+    private String createMyBakeryCondition(Boolean isMyBakery, boolean isAuthenticated) {
+        if (Boolean.TRUE.equals(isMyBakery) && isAuthenticated) {
+            return "AND b.member_id = :memberId\n";
+        }
+        return "";
     }
 
     private String createKeywordCondition(String keyword, MapSqlParameterSource params) {
