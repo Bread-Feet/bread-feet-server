@@ -77,10 +77,10 @@ public class Bakery extends BaseTimeEntity {
             String phoneNumber,
             String businessHours,
             String bestBread,
-            boolean isDrink,
-            boolean isEatIn,
-            boolean isWaiting,
-            boolean isParking
+            Boolean isDrink,
+            Boolean isEatIn,
+            Boolean isWaiting,
+            Boolean isParking
     ) {
         this.name = name;
         this.address = address;

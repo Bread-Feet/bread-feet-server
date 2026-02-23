@@ -13,7 +13,12 @@ public record BakeryDetailResponse(
         String businessHours,
         Long reviewCount,
         Double averageRating,
-        List<MenuDetailResponse> menus
+        List<MenuDetailResponse> menus,
+        String bestBread,
+        Boolean isDrink,
+        Boolean isEatIn,
+        Boolean isWaiting,
+        Boolean isParking
 ) {
 
     public static BakeryDetailResponse from(Bakery bakery, List<MenuDetailResponse> menus) {
@@ -29,7 +34,12 @@ public record BakeryDetailResponse(
                 bakery.getBusinessHours(),
                 0L,
                 0.0,
-                menus
+                menus,
+                bakery.getBestBread(),
+                bakery.getIsDrink(),
+                bakery.getIsEatIn(),
+                bakery.getIsWaiting(),
+                bakery.getIsParking()
         );
     }
 }

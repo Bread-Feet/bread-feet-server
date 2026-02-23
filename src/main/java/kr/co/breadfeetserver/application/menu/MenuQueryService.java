@@ -1,6 +1,5 @@
 package kr.co.breadfeetserver.application.menu;
 
-import java.util.Collections;
 import java.util.List;
 import kr.co.breadfeetserver.domain.menu.Menu;
 import kr.co.breadfeetserver.domain.menu.MenuQueryRepository;
@@ -19,7 +18,7 @@ public class MenuQueryService {
 
     public List<MenuDetailResponse> getMenu(Long bakeryId) {
 
-        List<Menu> menus = menuQueryRepository.findAllById(Collections.singleton(bakeryId));
+        List<Menu> menus = menuQueryRepository.findByBakeryId(bakeryId);
 
         return menus.stream()
                 .map(MenuDetailResponse::from)
