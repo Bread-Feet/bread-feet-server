@@ -3,13 +3,14 @@ package kr.co.breadfeetserver.global.auth;
 import java.util.stream.Stream;
 
 public class PublicPaths {
+
     public static final String[] AUTH = {
             "/login/**",
             "/oauth/**"
     };
 
     public static final String[] PUBLIC_API = {
-            "/api/v1/bakeries",
+            "/api/v1/bakeries/*",
             "/api/v1/bakery/*/review",
             "/api/v1/diaries"
     };
@@ -36,5 +37,6 @@ public class PublicPaths {
                 .toArray(String[]::new);
     }
 
-    private PublicPaths() {}
+    private PublicPaths() {
+    }
 }
