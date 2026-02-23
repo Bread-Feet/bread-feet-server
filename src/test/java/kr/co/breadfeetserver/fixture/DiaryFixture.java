@@ -1,15 +1,13 @@
 package kr.co.breadfeetserver.fixture;
 
-import kr.co.breadfeetserver.domain.diary.Diary;
-import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
-import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
+import static kr.co.breadfeetserver.fixture.AddressFixture.address;
+import static kr.co.breadfeetserver.fixture.AddressFixture.addressUpdateRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-import static kr.co.breadfeetserver.fixture.AddressFixture.address;
-import static kr.co.breadfeetserver.fixture.AddressFixture.addressCreateRequest;
-import static kr.co.breadfeetserver.fixture.AddressFixture.addressUpdateRequest;
+import kr.co.breadfeetserver.domain.diary.Diary;
+import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
+import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
 
 public class DiaryFixture {
 
@@ -31,7 +29,8 @@ public class DiaryFixture {
                 .build();
     }
 
-    public static DiaryCreateRequest aDiaryCreateRequest(List<String> hashtags, List<String> pictureUrls) {
+    public static DiaryCreateRequest aDiaryCreateRequest(List<String> hashtags,
+            List<String> pictureUrls) {
         return new DiaryCreateRequest(
                 isPublic,
                 address(),
@@ -45,7 +44,6 @@ public class DiaryFixture {
 
     public static DiaryUpdateRequest aDiaryUpdateRequest(Long diaryId) {
         return new DiaryUpdateRequest(
-                diaryId,
                 isPublic,
                 addressUpdateRequest(),
                 thumbnailUrl,

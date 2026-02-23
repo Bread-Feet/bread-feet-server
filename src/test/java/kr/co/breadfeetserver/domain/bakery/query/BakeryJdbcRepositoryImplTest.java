@@ -40,7 +40,9 @@ class BakeryJdbcRepositoryImplTest {
                 new AddressResponse("상세 주소 " + id, "지번 주소 " + id, "도로명 주소 " + id),
                 "이미지 URL " + id,
                 0L,
-                0.0
+                0.0,
+                false,
+                false
         );
     }
 
@@ -49,7 +51,7 @@ class BakeryJdbcRepositoryImplTest {
     void findFirstPage() {
         // given
         int size = 5;
-        BakeryCursorCommand command = new BakeryCursorCommand(null, size);
+        BakeryCursorCommand command = new BakeryCursorCommand(null, size, null, null);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 20; i >= 15; i--) {
@@ -76,7 +78,7 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 16L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 15; i >= 10; i--) {
@@ -103,7 +105,7 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 6L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 5; i >= 1; i--) {
@@ -130,7 +132,7 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 4L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 3; i >= 1; i--) {

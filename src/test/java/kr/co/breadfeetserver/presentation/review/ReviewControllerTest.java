@@ -1,15 +1,23 @@
 package kr.co.breadfeetserver.presentation.review;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.doNothing;
+import static org.mockito.BDDMockito.doThrow;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import kr.co.breadfeetserver.application.review.ReviewService;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
 import kr.co.breadfeetserver.infra.exception.GlobalExceptionHandler;
 import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import kr.co.breadfeetserver.presentation.review.dto.request.ReviewUpdateRequest;
-import kr.co.breadfeetserver.global.resolver.MemberIdArgumentResolver; // Import the actual resolver
-import jakarta.servlet.http.HttpServletRequest; // Import HttpServletRequest
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,17 +33,6 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.doNothing;
-import static org.mockito.BDDMockito.doThrow;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("ReviewController 단위 테스트")
@@ -60,14 +57,18 @@ class ReviewControllerTest {
         HandlerMethodArgumentResolver memberIdArgumentResolver = new HandlerMethodArgumentResolver() {
             @Override
             public boolean supportsParameter(MethodParameter parameter) {
-                return parameter.hasParameterAnnotation(Memberid.class) && parameter.getParameterType().equals(Long.class);
+                return parameter.hasParameterAnnotation(Memberid.class)
+                        && parameter.getParameterType().equals(Long.class);
             }
 
             @Override
-            public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                          NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+            public Object resolveArgument(MethodParameter parameter,
+                    ModelAndViewContainer mavContainer,
+                    NativeWebRequest webRequest, WebDataBinderFactory binderFactory)
+                    throws Exception {
                 // Simulate memberId being set in the request attribute, similar to how an interceptor would do it
-                HttpServletRequest httpServletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+                HttpServletRequest httpServletRequest = webRequest.getNativeRequest(
+                        HttpServletRequest.class);
                 httpServletRequest.setAttribute("memberId", memberId);
                 return memberId;
             }
@@ -80,8 +81,6 @@ class ReviewControllerTest {
         objectMapper = new ObjectMapper();
 
         reviewUpdateRequest = new ReviewUpdateRequest(
-                reviewId,
-                1L, // bakeryId
                 "Updated content from controller",
                 4.5
         );
@@ -91,7 +90,8 @@ class ReviewControllerTest {
     @DisplayName("리뷰_수정_성공")
     void 리뷰_수정_성공() throws Exception {
         // Given
-        doNothing().when(reviewService).updateReview(anyLong(), anyLong(), any(ReviewUpdateRequest.class));
+        doNothing().when(reviewService)
+                .updateReview(anyLong(), anyLong(), any(ReviewUpdateRequest.class));
 
         // When & Then
         mockMvc.perform(put("/api/v1/reviews/{reviewId}", reviewId)
@@ -136,7 +136,8 @@ class ReviewControllerTest {
                 .andDo(print())
                 .andExpect(status().isForbidden()) // 403
                 .andExpect(jsonPath("$.code").value("USER_NOT_ACCESS_FORBIDDEN"))
-                .andExpect(jsonPath("$.message").value(ErrorCode.USER_NOT_ACCESS_FORBIDDEN.getMessage()));
+                .andExpect(jsonPath("$.message").value(
+                        ErrorCode.USER_NOT_ACCESS_FORBIDDEN.getMessage()));
     }
 
     @Test
