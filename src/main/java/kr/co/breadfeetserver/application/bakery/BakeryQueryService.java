@@ -4,6 +4,7 @@ import kr.co.breadfeetserver.application.menu.MenuQueryService;
 import kr.co.breadfeetserver.application.support.CursorService;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.domain.bakery.query.BakeryQueryRepository;
+import kr.co.breadfeetserver.domain.review.ReviewJpaRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BakeryQueryService {
 
     private final BakeryQueryRepository bakeryJdbcRepository;
+    private final ReviewJpaRepository reviewJpaRepository;
     private final MenuQueryService menuQueryService;
     private final CursorService cursorService;
 
@@ -34,8 +36,13 @@ public class BakeryQueryService {
         Bakery bakery = bakeryJdbcRepository.findById(bakeryId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.BAKERY_NOT_FOUND));
 
+        Long reviewCount = reviewJpaRepository.countByBakeryId(bakeryId);
+        Double averageRating = reviewJpaRepository.findAverageRatingByBakeryId(bakeryId);
+
         return BakeryDetailResponse.from(
                 bakery,
+                reviewCount,
+                averageRating,
                 menuQueryService.getMenu(bakeryId)
         );
     }
