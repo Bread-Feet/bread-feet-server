@@ -12,7 +12,7 @@ public record ReviewListResponse(
         boolean isLiked,
         boolean isMyReview,
         String nickname,
-        String thumbnailUrl,
+        String reviewPictureUrl,
         LocalDateTime createdAt
 ) implements Cursorable {
     @Override
