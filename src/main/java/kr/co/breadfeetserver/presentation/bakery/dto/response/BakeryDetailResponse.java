@@ -21,7 +21,7 @@ public record BakeryDetailResponse(
         Boolean isParking
 ) {
 
-    public static BakeryDetailResponse from(Bakery bakery, List<MenuDetailResponse> menus) {
+    public static BakeryDetailResponse from(Bakery bakery, Long reviewCount, Double averageRating, List<MenuDetailResponse> menus) {
         return new BakeryDetailResponse(
                 bakery.getName(),
                 AddressResponse.of(
@@ -32,8 +32,8 @@ public record BakeryDetailResponse(
                 bakery.getImageUrl(),
                 bakery.getPhoneNumber(),
                 bakery.getBusinessHours(),
-                0L,
-                0.0,
+                reviewCount,
+                averageRating,
                 menus,
                 bakery.getBestBread(),
                 bakery.getIsDrink(),
