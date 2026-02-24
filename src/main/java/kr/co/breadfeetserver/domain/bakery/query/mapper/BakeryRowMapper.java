@@ -22,9 +22,7 @@ public class BakeryRowMapper implements RowMapper<BakeryListResponse> {
             address,
             rs.getString("image_url"),
             rs.getLong("review_count"),
-            rs.getDouble("average_rating"),
-            rs.getBoolean("is_my_bakery"),
-            rs.getBoolean("is_bookmark")
+            rs.getDouble("average_rating")
         );
     }
 }

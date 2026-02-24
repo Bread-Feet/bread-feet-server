@@ -11,7 +11,8 @@ public record BakeryCursorCommand(
         String keyword,
         Long memberId,
         SortType sortType,
-        Boolean isMyBakery
+        Boolean isMyBakery,
+        Boolean isBookmark
 ) {
 
 }

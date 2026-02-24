@@ -23,9 +23,7 @@ public class RandomBakeryJdbcRecommendationStrategy implements BakeryRecommendat
                 b.road_address,
                 b.image_url,
                 COUNT(DISTINCT r.review_id)  AS review_count,
-                COALESCE(AVG(r.rating), 0.0) AS average_rating,
-                false AS is_my_bakery,
-                false AS is_bookmark
+                COALESCE(AVG(r.rating), 0.0) AS average_rating
             FROM bakery b
             LEFT JOIN review r ON b.bakery_id = r.bakery_id
             WHERE b.deleted_at IS NULL

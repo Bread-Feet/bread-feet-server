@@ -34,10 +34,11 @@ public class BakeryQueryController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "LATEST") SortType sort,
-            @RequestParam(required = false, defaultValue = "false") Boolean isMyBakery
+            @RequestParam(required = false, defaultValue = "false") Boolean isMyBakery,
+            @RequestParam(required = false, defaultValue = "false") Boolean isBookmark
     ) {
         BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, keyword, memberId, sort,
-                isMyBakery);
+                isMyBakery, isBookmark);
 
         CursorResponse<BakeryListResponse> response = bakeryQueryService.getBakeryList(command);
 

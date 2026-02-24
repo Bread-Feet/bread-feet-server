@@ -28,9 +28,7 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
                 b.road_address,
                 b.image_url,
                 COUNT(DISTINCT r.review_id)  AS review_count,
-                COALESCE(AVG(r.rating), 0.0) AS average_rating,
-                false AS is_my_bakery,
-                false AS is_bookmark
+                COALESCE(AVG(r.rating), 0.0) AS average_rating
             FROM bakery b
             LEFT JOIN review r ON b.bakery_id = r.bakery_id
             """;
@@ -44,9 +42,7 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
                 b.road_address,
                 b.image_url,
                 COUNT(DISTINCT r.review_id)  AS review_count,
-                COALESCE(AVG(r.rating), 0.0) AS average_rating,
-                CASE WHEN b.member_id = :memberId THEN true ELSE false END AS is_my_bakery,
-                CASE WHEN bk.bookmark_id IS NOT NULL THEN true ELSE false END AS is_bookmark
+                COALESCE(AVG(r.rating), 0.0) AS average_rating
             FROM bakery b
             LEFT JOIN review r ON b.bakery_id = r.bakery_id
             LEFT JOIN bookmark bk ON b.bakery_id = bk.bakery_id AND bk.member_id = :memberId
@@ -72,6 +68,7 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
                 + createCursorCondition(command.cursor(), command.sortType(), params)
                 + createKeywordCondition(command.keyword(), params)
                 + createMyBakeryCondition(command.isMyBakery(), isAuthenticated)
+                + createBookmarkCondition(command.isBookmark(), isAuthenticated)
                 + "GROUP BY b.bakery_id\n"
                 + createOrderCondition(command.sortType())
                 + "LIMIT :size";
@@ -108,6 +105,13 @@ public class BakeryJdbcRepositoryImpl implements BakeryJdbcRepository {
     private String createMyBakeryCondition(Boolean isMyBakery, boolean isAuthenticated) {
         if (Boolean.TRUE.equals(isMyBakery) && isAuthenticated) {
             return "AND b.member_id = :memberId\n";
+        }
+        return "";
+    }
+
+    private String createBookmarkCondition(Boolean isBookmark, boolean isAuthenticated) {
+        if (Boolean.TRUE.equals(isBookmark) && isAuthenticated) {
+            return "AND bk.bookmark_id IS NOT NULL\n";
         }
         return "";
     }
