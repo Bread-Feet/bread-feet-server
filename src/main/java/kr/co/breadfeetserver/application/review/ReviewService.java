@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -36,14 +38,13 @@ public class ReviewService {
         Long reviewId = review.getId();
 
         if (!CollectionUtils.isEmpty(request.reviewPictureUrls())) {
-            request.reviewPictureUrls().forEach(pictureUrl ->
-                    reviewPictureUrlJpaRepository.save(
-                            ReviewPictureUrl.builder()
-                                    .pic_url(pictureUrl)
-                                    .reviewId(reviewId)
-                                    .build()
-                    )
-            );
+            List<ReviewPictureUrl> pictureUrls = request.reviewPictureUrls().stream()
+                    .map(url -> ReviewPictureUrl.builder()
+                            .pic_url(url)
+                            .reviewId(reviewId)
+                            .build())
+                    .toList();
+            reviewPictureUrlJpaRepository.saveAll(pictureUrls);
         }
 
         return reviewId;
@@ -57,7 +58,19 @@ public class ReviewService {
             throw new BreadFeetBusinessException(ErrorCode.USER_NOT_ACCESS_FORBIDDEN);
         }
 
-        reviewUpdateRequestToEntity(review, request);
+        review.updateReview(request.content(), request.rating());
+
+        reviewPictureUrlJpaRepository.deleteAllByReviewId(reviewId);
+
+        if (!CollectionUtils.isEmpty(request.reviewPictureUrls())) {
+            List<ReviewPictureUrl> pictureUrls = request.reviewPictureUrls().stream()
+                    .map(url -> ReviewPictureUrl.builder()
+                            .pic_url(url)
+                            .reviewId(reviewId)
+                            .build())
+                    .toList();
+            reviewPictureUrlJpaRepository.saveAll(pictureUrls);
+        }
     }
 
     public void deleteReview(long memberId, Long reviewId) {
