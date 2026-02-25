@@ -63,12 +63,13 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
                 "CASE WHEN EXISTS (SELECT 1 FROM likes rl WHERE rl.review_id = r.review_id AND rl.member_id = :memberId) THEN 1 ELSE 0 END AS is_liked, "
                 +
                 "CASE WHEN r.member_id = :memberId THEN true ELSE false END AS is_my_review, " +
-                "(SELECT rpu.pic_url FROM reviewpicture_url rpu WHERE rpu.review_id = r.review_id ORDER BY rpu.id LIMIT 1) AS review_picture_url "
-                +
+                "GROUP_CONCAT(rpu.pic_url ORDER BY rpu.id) AS review_picture_urls " +
                 "FROM review r " +
                 "JOIN member m ON r.member_id = m.member_id " +
+                "LEFT JOIN reviewpicture_url rpu ON r.review_id = rpu.review_id " +
                 "WHERE r.bakery_id = :bakeryId " +
                 "AND r.review_id < :cursorId " +
+                "GROUP BY r.review_id, r.content, r.rating, r.created_at, m.nickname, r.member_id " +
                 "ORDER BY r.review_id DESC " +
                 "LIMIT :size";
 
@@ -117,6 +118,10 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
 
         @Override
         public ReviewListResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
+            String pictureUrlsStr = rs.getString("review_picture_urls");
+            List<String> pictureUrls = pictureUrlsStr == null ? Collections.emptyList()
+                    : Arrays.asList(pictureUrlsStr.split(","));
+
             return new ReviewListResponse(
                     rs.getLong("review_id"),
                     rs.getString("content"),
@@ -125,7 +130,7 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
                     rs.getBoolean("is_liked"),
                     rs.getBoolean("is_my_review"),
                     rs.getString("nickname"),
-                    rs.getString("review_picture_url"),
+                    pictureUrls,
                     rs.getObject("created_at", LocalDateTime.class)
             );
         }
