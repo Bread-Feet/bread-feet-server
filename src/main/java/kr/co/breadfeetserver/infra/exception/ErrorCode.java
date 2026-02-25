@@ -42,6 +42,9 @@ public enum ErrorCode {
     // 인증 관련 에러
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다."),
 
+    // 지오코딩 관련 에러
+    GEOCODING_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "주소 좌표 변환에 실패했습니다."),
+
     // 공통 에러
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "유효하지 않은 입력값입니다."),
 
