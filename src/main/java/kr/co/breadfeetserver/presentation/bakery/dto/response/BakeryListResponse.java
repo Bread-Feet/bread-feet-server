@@ -8,7 +8,9 @@ public record BakeryListResponse(
         AddressResponse address,
         String imageUrl,
         Long reviewCount,
-        Double averageRating
+        Double averageRating,
+        Boolean isMyBakery,
+        Boolean isBookmark
 ) implements Cursorable {
 
     @Override

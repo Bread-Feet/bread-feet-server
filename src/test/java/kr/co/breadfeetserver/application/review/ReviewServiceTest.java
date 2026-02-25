@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 
+import java.util.List;
 import java.util.Optional;
 import kr.co.breadfeetserver.domain.review.Review;
 import kr.co.breadfeetserver.domain.review.ReviewJpaRepository;
@@ -47,7 +48,11 @@ class ReviewServiceTest {
 
         updateRequest = new ReviewUpdateRequest(
                 "Updated content",
-                5.0
+                5.0,
+                List.of(
+                        "https://example.com/image1.jpg",
+                        "https://example.com/image2.jpg"
+                )
         );
     }
 

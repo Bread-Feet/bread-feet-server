@@ -52,7 +52,8 @@ class BakeryJdbcRepositoryImplTest {
     void findFirstPage() {
         // given
         int size = 5;
-        BakeryCursorCommand command = new BakeryCursorCommand(null, size, null, null, SortType.LATEST);
+        BakeryCursorCommand command = new BakeryCursorCommand(null, size, null, null,
+                SortType.LATEST, false, false);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 20; i >= 15; i--) {
@@ -79,7 +80,8 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 16L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null, SortType.LATEST);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null,
+                SortType.LATEST, false, false);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 15; i >= 10; i--) {
@@ -106,7 +108,8 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 6L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null, SortType.LATEST);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null,
+                SortType.LATEST, false, false);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 5; i >= 1; i--) {
@@ -133,7 +136,8 @@ class BakeryJdbcRepositoryImplTest {
         // given
         int size = 5;
         Long cursor = 4L;
-        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null, SortType.LATEST);
+        BakeryCursorCommand command = new BakeryCursorCommand(cursor, size, null, null,
+                SortType.LATEST, false, false);
 
         List<BakeryListResponse> mockedData = new ArrayList<>();
         for (long i = 3; i >= 1; i--) {

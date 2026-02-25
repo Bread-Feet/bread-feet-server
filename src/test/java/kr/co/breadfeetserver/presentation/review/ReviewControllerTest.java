@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
 import kr.co.breadfeetserver.application.review.ReviewService;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
@@ -82,7 +83,11 @@ class ReviewControllerTest {
 
         reviewUpdateRequest = new ReviewUpdateRequest(
                 "Updated content from controller",
-                4.5
+                4.5,
+                List.of(
+                        "https://example.com/image1.jpg",
+                        "https://example.com/image2.jpg"
+                )
         );
     }
 

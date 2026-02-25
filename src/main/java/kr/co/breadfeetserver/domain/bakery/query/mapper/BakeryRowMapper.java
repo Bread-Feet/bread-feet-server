@@ -11,18 +11,20 @@ public class BakeryRowMapper implements RowMapper<BakeryListResponse> {
     @Override
     public BakeryListResponse mapRow(ResultSet rs, int rowNum) throws SQLException {
         AddressResponse address = AddressResponse.of(
-            rs.getString("detail"),
-            rs.getString("lot_number"),
-            rs.getString("road_address")
+                rs.getString("detail"),
+                rs.getString("lot_number"),
+                rs.getString("road_address")
         );
 
         return new BakeryListResponse(
-            rs.getLong("bakery_id"),
-            rs.getString("name"),
-            address,
-            rs.getString("image_url"),
-            rs.getLong("review_count"),
-            rs.getDouble("average_rating")
+                rs.getLong("bakery_id"),
+                rs.getString("name"),
+                address,
+                rs.getString("image_url"),
+                rs.getLong("review_count"),
+                rs.getDouble("average_rating"),
+                rs.getBoolean("is_my_bakery"),
+                rs.getBoolean("is_bookmark")
         );
     }
 }
