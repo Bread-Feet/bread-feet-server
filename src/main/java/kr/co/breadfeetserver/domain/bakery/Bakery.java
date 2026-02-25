@@ -94,6 +94,20 @@ public class Bakery extends BaseTimeEntity {
         this.isParking = isParking;
     }
 
+    /**
+     * 좌표를 업데이트한다.
+     *
+     * <p>빵집 저장/수정 후 카카오 Geocoding API로 변환한 좌표를 반영할 때 사용한다.
+     * JPA 더티 체킹으로 별도 save() 호출 없이 트랜잭션 커밋 시 반영된다.
+     *
+     * @param x 경도 (longitude, WGS84)
+     * @param y 위도 (latitude, WGS84)
+     */
+    public void updateCoordinates(Double x, Double y) {
+        this.xCoordinate = x;
+        this.yCoordinate = y;
+    }
+
     public boolean equalMemberId(Long memberId) {
         return Objects.equals(this.memberId, memberId);
     }
