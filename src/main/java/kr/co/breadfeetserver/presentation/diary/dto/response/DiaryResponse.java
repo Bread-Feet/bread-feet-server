@@ -19,6 +19,7 @@ public record DiaryResponse(
         String content,
         Long memberId,
         Long bakeryId,
+        String drawingData,
         List<String> hashtags,
         List<String> pictureUrls
 ) {
@@ -37,6 +38,7 @@ public record DiaryResponse(
                 .content(diary.getContent())
                 .memberId(diary.getMemberId())
                 .bakeryId(diary.getBakeryId())
+                .drawingData(diary.getDrawingData())
                 .hashtags(hashtags)
                 .pictureUrls(pictureUrls)
                 .build();

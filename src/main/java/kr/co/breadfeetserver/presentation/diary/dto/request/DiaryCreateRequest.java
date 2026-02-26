@@ -14,6 +14,7 @@ public record DiaryCreateRequest(
         @IsEssential Long bakeryId,
         LocalDateTime visitDate,
         String content,
+        String drawingData,
         List<String> hashtags,
         List<String> pictureUrls
 ) {
@@ -27,6 +28,7 @@ public record DiaryCreateRequest(
                 .title(title)
                 .bakeryId(bakeryId)
                 .content(content)
+                .drawingData(drawingData)
                 .memberId(memberId)
                 .build();
     }

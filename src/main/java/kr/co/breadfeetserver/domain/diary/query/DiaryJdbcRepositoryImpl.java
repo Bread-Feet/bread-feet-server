@@ -24,7 +24,7 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 d.ispublic AS isPublic,
                 d.visit_date AS visitDate,
                 d.title AS title,
-                b.bakery_name AS bakeryName,
+                b.name AS bakeryName,
                 m.nickname AS nickname,
                 d.content AS content,
                 d.member_id AS memberId,

@@ -13,6 +13,7 @@ public record DiaryUpdateRequest(
         @IsEssential Long bakeryId,
         LocalDateTime visitDate,
         String content,
+        String drawingData,
         List<String> hashtags,
         List<String> pictureUrls
 ) {

@@ -107,7 +107,8 @@ public class DiaryService {
                 request.visitDate(),
                 request.title(),
                 request.content(),
-                request.bakeryId()
+                request.bakeryId(),
+                request.drawingData()
         );
     }
 }

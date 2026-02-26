@@ -56,6 +56,9 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "bakery_id")
     private Long bakeryId;
 
+    @Column(name = "drawing_data", columnDefinition = "LONGTEXT")
+    private String drawingData;
+
     public void updateDiary(
             AddressJpaVO address,
             String thumbnailUrl,
@@ -63,7 +66,8 @@ public class Diary extends BaseTimeEntity {
             LocalDateTime visitDate,
             String title,
             String content,
-            Long bakeryId
+            Long bakeryId,
+            String drawingData
     ) {
         this.address = address;
         this.thumbnailUrl = thumbnailUrl;
@@ -72,5 +76,6 @@ public class Diary extends BaseTimeEntity {
         this.title = title;
         this.content = content;
         this.bakeryId = bakeryId;
+        this.drawingData = drawingData;
     }
 }
