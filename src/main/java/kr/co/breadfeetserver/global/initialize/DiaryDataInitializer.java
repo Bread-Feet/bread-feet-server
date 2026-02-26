@@ -37,7 +37,6 @@ public class DiaryDataInitializer implements ApplicationRunner {
         List<Diary> diaries = List.of(
                 Diary.builder()
                         .title("성수동 빵지순례")
-                        .bakeryName("밀도")
                         .address(AddressJpaVO.builder()
                                 .detail("1층")
                                 .lotNumber("서울 강남구 청담동 84-4")
@@ -53,7 +52,6 @@ public class DiaryDataInitializer implements ApplicationRunner {
 
                 Diary.builder()
                         .title("인생 바게트를 만나다")
-                        .bakeryName("르뺑")
                         .address(AddressJpaVO.builder()
                                 .detail("1층")
                                 .lotNumber("서울 마포구 서교동 396-31")
@@ -64,12 +62,11 @@ public class DiaryDataInitializer implements ApplicationRunner {
                         .visitDate(LocalDateTime.now().minusDays(5))
                         .content("바게트 겉바속촉의 정석입니다. 무화과 잠봉뵈르 꼭 드셔보세요.")
                         .memberId(1L)
-                        .bakeryId(2L)
+                        .bakeryId(3L)
                         .build(),
 
                 Diary.builder()
                         .title("주말 아침 크루아상 한 잔")
-                        .bakeryName("아티장베이커스")
                         .address(AddressJpaVO.builder()
                                 .detail("지하 1층")
                                 .lotNumber("서울 성동구 성수동2가 289-10")
@@ -80,7 +77,7 @@ public class DiaryDataInitializer implements ApplicationRunner {
                         .visitDate(LocalDateTime.now().minusDays(1))
                         .content("크루아상 결이 살아있어요. 커피랑 찰떡궁합입니다.")
                         .memberId(1L)
-                        .bakeryId(3L)
+                        .bakeryId(6L)
                         .build()
         );
 

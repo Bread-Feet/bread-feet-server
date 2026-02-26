@@ -13,7 +13,7 @@ public class DiaryFixture {
 
     public static String thumbnailUrl = "https://example.com/diary.jpg";
     public static String title = "맛있는 빵 여행";
-    public static String bakeryName = "빵지순례 1호점";
+    public static Long bakeryId = 1L;
     // public static int score = 5; // score field is not in Diary entity
     public static boolean isPublic = true;
     public static LocalDateTime visitDate = LocalDateTime.now();
@@ -25,7 +25,7 @@ public class DiaryFixture {
                 .address(address())
                 .thumbnailUrl(thumbnailUrl)
                 .title(title)
-                .bakeryName(bakeryName)
+                .bakeryId(bakeryId)
                 // .score(score) // score field is not in Diary entity
                 .isPublic(isPublic)
                 .visitDate(visitDate)
@@ -40,7 +40,7 @@ public class DiaryFixture {
                 address(),
                 thumbnailUrl,
                 title,
-                bakeryName,
+                bakeryId,
                 visitDate,
                 content,
                 hashtags,
@@ -54,7 +54,7 @@ public class DiaryFixture {
                 addressUpdateRequest(),
                 thumbnailUrl,
                 title,
-                bakeryName,
+                bakeryId,
                 visitDate,
                 content,
                 List.of(), // Placeholder for hashtags
