@@ -13,6 +13,7 @@ import java.util.Optional;
 import kr.co.breadfeetserver.application.menu.MenuService;
 import kr.co.breadfeetserver.domain.bakery.Bakery;
 import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
+import kr.co.breadfeetserver.infra.geocoding.KakaoGeocodingClient;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.AddressUpdateRequest;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCreateRequest;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryUpdateRequest;
@@ -34,11 +35,14 @@ class BakeryServiceTest {
     @Mock
     private MenuService menuService;
 
+    @Mock
+    private KakaoGeocodingClient kakaoGeocodingClient;
+
     private BakeryService bakeryService;
 
     @BeforeEach
     void setUp() {
-        bakeryService = new BakeryService(repository, menuService);
+        bakeryService = new BakeryService(repository, menuService, kakaoGeocodingClient);
     }
 
     @Test

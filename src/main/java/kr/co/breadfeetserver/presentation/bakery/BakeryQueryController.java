@@ -1,8 +1,6 @@
 package kr.co.breadfeetserver.presentation.bakery;
 
-import java.util.List;
 import kr.co.breadfeetserver.application.bakery.BakeryQueryService;
-import kr.co.breadfeetserver.application.bakery.BakeryRecommendationService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
 import kr.co.breadfeetserver.presentation.annotation.Memberid;
 import kr.co.breadfeetserver.presentation.bakery.dto.request.BakeryCursorCommand;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BakeryQueryController {
 
     private final BakeryQueryService bakeryQueryService;
-    private final BakeryRecommendationService bakeryRecommendationService;
 
     @GetMapping
     public ResponseEntity<ApiResponseWrapper<CursorResponse<BakeryListResponse>>> getBakeryList(
@@ -47,16 +44,6 @@ public class BakeryQueryController {
                 .body(ApiResponseWrapper.success(HttpStatus.OK, "빵집 목록 조회 성공", response));
     }
 
-    @GetMapping("/random")
-    public ResponseEntity<ApiResponseWrapper<List<BakeryListResponse>>> getRandomBakeries(
-            @RequestParam(defaultValue = "4") int size
-    ) {
-        List<BakeryListResponse> response = bakeryRecommendationService.getRecommendations(size);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(ApiResponseWrapper.success(HttpStatus.OK, "랜덤 빵집 조회 성공", response));
-    }
 
     @GetMapping("/{bakeryId}")
     public ResponseEntity<ApiResponseWrapper<BakeryDetailResponse>> getBakeryDetail(
