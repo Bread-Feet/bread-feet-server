@@ -11,6 +11,8 @@ public record DiaryCreateRequest(
         @IsEssential Boolean isPublic,
         @IsEssential AddressJpaVO address,
         @IsEssential String thumbnail,
+        @IsEssential String title,
+        @IsEssential String bakeryName,
         LocalDateTime visitDate,
         String content,
         List<String> hashtags,
@@ -22,6 +24,8 @@ public record DiaryCreateRequest(
                 .address(address)
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)
+                .title(title)
+                .bakeryName(bakeryName)
                 .content(content)
                 .memberId(memberId)
                 .build();

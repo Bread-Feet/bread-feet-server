@@ -45,6 +45,12 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "visitDate")
     private LocalDateTime visitDate;
 
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "bakery_name")
+    private String bakeryName;
+
     @Column(name = "content")
     private String content;
 
@@ -59,12 +65,16 @@ public class Diary extends BaseTimeEntity {
             String thumbnailUrl,
             Boolean isPublic,
             LocalDateTime visitDate,
+            String title,
+            String bakeryName,
             String content
     ) {
         this.address = address;
         this.thumbnailUrl = thumbnailUrl;
         this.isPublic = isPublic;
         this.visitDate = visitDate;
+        this.title = title;
+        this.bakeryName = bakeryName;
         this.content = content;
     }
 

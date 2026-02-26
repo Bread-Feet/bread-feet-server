@@ -24,6 +24,9 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 d.thumb_url AS thumbnailUrl,
                 d.ispublic AS isPublic,
                 d.visit_date AS visitDate,
+                d.title AS title,
+                d.bakery_name AS bakeryName,
+                m.nickname AS nickname,
                 d.content AS content,
                 d.member_id AS memberId,
                 d.bakery_id AS bakeryId,
@@ -31,6 +34,8 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 GROUP_CONCAT(DISTINCT p.pic_url) AS pictureUrls
             FROM
                 diary d
+            LEFT JOIN
+                member m ON d.member_id = m.member_id
             LEFT JOIN
                 hashtag h ON d.diary_id = h.diary_id
             LEFT JOIN

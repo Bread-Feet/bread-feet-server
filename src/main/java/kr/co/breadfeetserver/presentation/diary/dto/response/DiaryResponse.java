@@ -13,6 +13,9 @@ public record DiaryResponse(
         String thumbnailUrl,
         Boolean isPublic,
         LocalDateTime visitDate,
+        String title,
+        String bakeryName,
+        String nickname,
         String content,
         Long memberId,
         Long bakeryId,
@@ -27,6 +30,26 @@ public record DiaryResponse(
                 .thumbnailUrl(diary.getThumbnailUrl())
                 .isPublic(diary.getIsPublic())
                 .visitDate(diary.getVisitDate())
+                .title(diary.getTitle())
+                .bakeryName(diary.getBakeryName())
+                .content(diary.getContent())
+                .memberId(diary.getMemberId())
+                .bakeryId(diary.getBakeryId())
+                .hashtags(hashtags)
+                .pictureUrls(pictureUrls)
+                .build();
+    }
+
+    public static DiaryResponse from(Diary diary, String nickname, List<String> hashtags, List<String> pictureUrls) {
+        return DiaryResponse.builder()
+                .id(diary.getId())
+                .address(diary.getAddress())
+                .thumbnailUrl(diary.getThumbnailUrl())
+                .isPublic(diary.getIsPublic())
+                .visitDate(diary.getVisitDate())
+                .title(diary.getTitle())
+                .bakeryName(diary.getBakeryName())
+                .nickname(nickname)
                 .content(diary.getContent())
                 .memberId(diary.getMemberId())
                 .bakeryId(diary.getBakeryId())

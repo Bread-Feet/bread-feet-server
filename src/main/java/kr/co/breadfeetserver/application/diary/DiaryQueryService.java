@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class DiaryQueryService {
     private final DiaryQueryRepository diaryJdbcRepository;
+    private final kr.co.breadfeetserver.domain.member.MemberJpaRepository memberJpaRepository;
     private final HashtagJpaRepository hashtagJpaRepository;
     private final PictureUrlJpaRepository pictureUrlJpaRepository;
     private final CursorService cursorService;
@@ -42,6 +43,10 @@ public class DiaryQueryService {
         Diary diary = diaryJdbcRepository.findById(diaryid)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
+        String nickname = memberJpaRepository.findById(diary.getMemberId())
+                .map(member -> member.getNickname())
+                .orElse(null);
+
         List<String> hashtags = hashtagJpaRepository.findAllByDiaryId(diaryid).stream()
                 .map(hashtag -> hashtag.getName())
                 .collect(Collectors.toList());
@@ -50,6 +55,6 @@ public class DiaryQueryService {
                 .map(pictureUrl -> pictureUrl.getPic_url())
                 .collect(Collectors.toList());
 
-        return DiaryResponse.from(diary, hashtags, pictureUrls);
+        return DiaryResponse.from(diary, nickname, hashtags, pictureUrls);
     }
 }
