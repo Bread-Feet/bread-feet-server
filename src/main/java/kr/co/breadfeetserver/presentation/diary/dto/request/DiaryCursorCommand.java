@@ -7,6 +7,9 @@ public record DiaryCursorCommand(
         @Min(0)
         Long cursor,
         @CursorSize
-        int size
+        int size,
+        Long memberId,
+        Boolean isMyDiary
 ) {
+
 }

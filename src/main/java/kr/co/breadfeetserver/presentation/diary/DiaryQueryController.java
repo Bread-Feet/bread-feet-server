@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.presentation.diary;
 
+import java.time.LocalDate;
 import kr.co.breadfeetserver.application.diary.DiaryQueryService;
 import kr.co.breadfeetserver.infra.util.ApiResponseWrapper;
 import kr.co.breadfeetserver.presentation.annotation.Memberid;
@@ -8,6 +9,7 @@ import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryListResponse;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryResponse;
 import kr.co.breadfeetserver.presentation.support.CursorResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +29,10 @@ public class DiaryQueryController {
     public ResponseEntity<ApiResponseWrapper<CursorResponse<DiaryListResponse>>> getDiaryList(
             @RequestParam Long cursor,
             @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "false") boolean isMyDiary,
             @Memberid(required = false) Long memberId
     ) {
-        DiaryCursorCommand command = new DiaryCursorCommand(cursor, size);
+        DiaryCursorCommand command = new DiaryCursorCommand(cursor, size, memberId, isMyDiary);
 
         CursorResponse<DiaryListResponse> response = diaryQueryService.getDiaryList(command);
 
@@ -37,6 +40,16 @@ public class DiaryQueryController {
                 .status(HttpStatus.OK)
                 .body(ApiResponseWrapper.success(HttpStatus.OK, "다이어리 목록 조회 성공",
                         response));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponseWrapper<DiaryResponse>> getMyDiaryByDate(
+            @Memberid Long memberId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    ) {
+        DiaryResponse response = diaryQueryService.getDiaryByDate(memberId, date);
+
+        return ResponseEntity.ok(ApiResponseWrapper.success(HttpStatus.OK, response));
     }
 
     @GetMapping("/{diaryId}")

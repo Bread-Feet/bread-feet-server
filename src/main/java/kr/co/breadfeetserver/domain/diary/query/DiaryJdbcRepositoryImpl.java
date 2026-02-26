@@ -43,7 +43,6 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 picture_url p ON d.diary_id = p.diary_id
             WHERE
                 d.deleted_at IS NULL
-                AND d.ispublic = true
             """;
 
     private final NamedParameterJdbcTemplate jdbc;
@@ -54,6 +53,14 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 .addValue("size", command.size() + 1);
 
         StringBuilder sqlBuilder = new StringBuilder(BASE_SQL);
+
+        if (Boolean.TRUE.equals(command.isMyDiary()) && command.memberId() != null) {
+            params.addValue("memberId", command.memberId());
+            sqlBuilder.append(" AND d.member_id = :memberId");
+        } else {
+            sqlBuilder.append(" AND d.ispublic = true");
+        }
+
         sqlBuilder.append(createCursorCondition(command.cursor(), params));
         sqlBuilder.append(" GROUP BY d.diary_id ORDER BY d.diary_id DESC LIMIT :size");
 
