@@ -13,6 +13,8 @@ public record DiaryUpdateRequest(
         @IsEssential Boolean isPublic,
         @IsEssential AddressUpdateRequest address,
         @IsEssential String thumbnail,
+        @IsEssential String title,
+        @IsEssential String bakeryName,
         LocalDateTime visitDate,
         String content,
         List<String> hashtags,
@@ -24,6 +26,8 @@ public record DiaryUpdateRequest(
                 .address(address.toEntity())
                 .thumbnailUrl(thumbnail)
                 .visitDate(visitDate)
+                .title(title)
+                .bakeryName(bakeryName)
                 .content(content)
                 .memberId(memberId)
                 .build();

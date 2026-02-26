@@ -98,6 +98,8 @@ public class DiaryService {
                 request.thumbnail(),
                 request.isPublic(),
                 request.visitDate(),
+                request.title(),
+                request.bakeryName(),
                 request.content()
         );
     }

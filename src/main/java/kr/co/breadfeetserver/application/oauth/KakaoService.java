@@ -92,7 +92,7 @@ public class KakaoService {
             JsonNode jsonNode = objectMapper.readTree(responseBody);
             //TODO: 나중에 추가하기 (이메일 등 등.. 카카오) String email = jsonNode.get("kakao_account").get("email").asText();
             Long id = jsonNode.get("id").asLong();
-            String nickname = jsonNode.get("properties").get("nickname").asText();
+            String nickname = jsonNode.get("kakao_account").get("profile").get("nickname").asText();
 
             userInfo.put("id", id);
             userInfo.put("nickname", nickname);
