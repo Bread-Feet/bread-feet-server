@@ -1,5 +1,6 @@
 package kr.co.breadfeetserver.domain.diary.query;
 
+import java.util.List;
 import kr.co.breadfeetserver.domain.diary.query.mapper.DiaryRowMapper;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCursorCommand;
 import kr.co.breadfeetserver.presentation.diary.dto.response.DiaryListResponse;
@@ -10,8 +11,6 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 d.ispublic AS isPublic,
                 d.visit_date AS visitDate,
                 d.title AS title,
-                d.bakery_name AS bakeryName,
+                b.bakery_name AS bakeryName,
                 m.nickname AS nickname,
                 d.content AS content,
                 d.member_id AS memberId,
@@ -34,6 +33,8 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
                 GROUP_CONCAT(DISTINCT p.pic_url) AS pictureUrls
             FROM
                 diary d
+            LEFT JOIN
+                bakery b ON d.bakery_id = b.bakery_id
             LEFT JOIN
                 member m ON d.member_id = m.member_id
             LEFT JOIN
@@ -50,7 +51,7 @@ public class DiaryJdbcRepositoryImpl implements DiaryJdbcRepository {
     @Override
     public Slice<DiaryListResponse> findAll(DiaryCursorCommand command) {
         MapSqlParameterSource params = new MapSqlParameterSource()
-            .addValue("size", command.size() + 1);
+                .addValue("size", command.size() + 1);
 
         StringBuilder sqlBuilder = new StringBuilder(BASE_SQL);
         sqlBuilder.append(createCursorCondition(command.cursor(), params));
