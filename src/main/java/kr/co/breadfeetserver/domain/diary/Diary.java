@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import kr.co.breadfeetserver.domain.bakery.AddressJpaVO;
 import kr.co.breadfeetserver.global.base.BaseTimeEntity;
 import lombok.AccessLevel;
@@ -17,9 +18,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SoftDeleteType;
 
-
-import java.time.LocalDateTime;
-
 @Getter
 @Entity
 @Table(name = "diary")
@@ -28,6 +26,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SoftDelete(columnName = "deleted_at", strategy = SoftDeleteType.TIMESTAMP)
 public class Diary extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "diary_id")
@@ -48,9 +47,6 @@ public class Diary extends BaseTimeEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "bakery_name")
-    private String bakeryName;
-
     @Column(name = "content")
     private String content;
 
@@ -66,16 +62,15 @@ public class Diary extends BaseTimeEntity {
             Boolean isPublic,
             LocalDateTime visitDate,
             String title,
-            String bakeryName,
-            String content
+            String content,
+            Long bakeryId
     ) {
         this.address = address;
         this.thumbnailUrl = thumbnailUrl;
         this.isPublic = isPublic;
         this.visitDate = visitDate;
         this.title = title;
-        this.bakeryName = bakeryName;
         this.content = content;
+        this.bakeryId = bakeryId;
     }
-
 }

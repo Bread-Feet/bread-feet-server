@@ -1,11 +1,16 @@
 package kr.co.breadfeetserver.application.diary;
 
-import kr.co.breadfeetserver.domain.diary.*;
+import kr.co.breadfeetserver.domain.diary.Diary;
+import kr.co.breadfeetserver.domain.diary.DiaryJpaRepository;
+import kr.co.breadfeetserver.domain.diary.Hashtag;
+import kr.co.breadfeetserver.domain.diary.HashtagJpaRepository;
+import kr.co.breadfeetserver.domain.diary.PictureUrl;
+import kr.co.breadfeetserver.domain.diary.PictureUrlJpaRepository;
 import kr.co.breadfeetserver.domain.member.MemberJpaRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
-import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCreateRequest;
+import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 @Transactional
 @RequiredArgsConstructor
 public class DiaryService {
+
     private final DiaryJpaRepository diaryJpaRepository;
     private final MemberJpaRepository memberJpaRepository;
     private final HashtagJpaRepository hashtagJpaRepository;
@@ -84,7 +90,7 @@ public class DiaryService {
         }
     }
 
-    public void deleteDiary(long memberId, Long diaryId){
+    public void deleteDiary(long memberId, Long diaryId) {
         diaryJpaRepository.findByIdAndMemberId(diaryId, memberId)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
@@ -92,6 +98,7 @@ public class DiaryService {
         pictureUrlJpaRepository.deleteAllByDiaryId(diaryId);
         diaryJpaRepository.deleteById(diaryId);
     }
+
     private void diaryUpdateRequestToEntity(Diary diary, DiaryUpdateRequest request) {
         diary.updateDiary(
                 request.address().toEntity(),
@@ -99,8 +106,8 @@ public class DiaryService {
                 request.isPublic(),
                 request.visitDate(),
                 request.title(),
-                request.bakeryName(),
-                request.content()
+                request.content(),
+                request.bakeryId()
         );
     }
 }

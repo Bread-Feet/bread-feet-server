@@ -23,7 +23,8 @@ public record DiaryResponse(
         List<String> pictureUrls
 ) {
 
-    public static DiaryResponse from(Diary diary, List<String> hashtags, List<String> pictureUrls) {
+    public static DiaryResponse from(Diary diary, List<String> hashtags, List<String> pictureUrls,
+            String bakeryName, String nickname) {
         return DiaryResponse.builder()
                 .id(diary.getId())
                 .address(diary.getAddress())
@@ -31,24 +32,7 @@ public record DiaryResponse(
                 .isPublic(diary.getIsPublic())
                 .visitDate(diary.getVisitDate())
                 .title(diary.getTitle())
-                .bakeryName(diary.getBakeryName())
-                .content(diary.getContent())
-                .memberId(diary.getMemberId())
-                .bakeryId(diary.getBakeryId())
-                .hashtags(hashtags)
-                .pictureUrls(pictureUrls)
-                .build();
-    }
-
-    public static DiaryResponse from(Diary diary, String nickname, List<String> hashtags, List<String> pictureUrls) {
-        return DiaryResponse.builder()
-                .id(diary.getId())
-                .address(diary.getAddress())
-                .thumbnailUrl(diary.getThumbnailUrl())
-                .isPublic(diary.getIsPublic())
-                .visitDate(diary.getVisitDate())
-                .title(diary.getTitle())
-                .bakeryName(diary.getBakeryName())
+                .bakeryName(bakeryName)
                 .nickname(nickname)
                 .content(diary.getContent())
                 .memberId(diary.getMemberId())

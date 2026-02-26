@@ -20,15 +20,16 @@ public record DiaryListResponse(
         List<String> pictureUrls
 ) implements Cursorable {
 
-    public static DiaryListResponse from(Diary diary, List<String> hashtags, List<String> pictureUrls) {
+    public static DiaryListResponse from(Diary diary, List<String> hashtags,
+            List<String> pictureUrls, String bakeryName, String nickname) {
         return new DiaryListResponse(
                 diary.getId(),
                 diary.getThumbnailUrl(),
                 diary.getIsPublic(),
                 diary.getVisitDate(),
                 diary.getTitle(),
-                diary.getBakeryName(),
-                null,
+                bakeryName,
+                nickname,
                 diary.getContent(),
                 diary.getMemberId(),
                 diary.getBakeryId(),

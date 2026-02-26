@@ -1,11 +1,14 @@
 package kr.co.breadfeetserver.application.diary;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import kr.co.breadfeetserver.application.support.CursorService;
+import kr.co.breadfeetserver.domain.bakery.BakeryJpaRepository;
 import kr.co.breadfeetserver.domain.diary.Diary;
-import kr.co.breadfeetserver.domain.diary.DiaryJpaRepository;
 import kr.co.breadfeetserver.domain.diary.HashtagJpaRepository;
 import kr.co.breadfeetserver.domain.diary.PictureUrlJpaRepository;
 import kr.co.breadfeetserver.domain.diary.query.DiaryQueryRepository;
+import kr.co.breadfeetserver.domain.member.MemberJpaRepository;
 import kr.co.breadfeetserver.infra.exception.BreadFeetBusinessException;
 import kr.co.breadfeetserver.infra.exception.ErrorCode;
 import kr.co.breadfeetserver.presentation.diary.dto.request.DiaryCursorCommand;
@@ -17,16 +20,15 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class DiaryQueryService {
+
     private final DiaryQueryRepository diaryJdbcRepository;
-    private final kr.co.breadfeetserver.domain.member.MemberJpaRepository memberJpaRepository;
+    private final MemberJpaRepository memberJpaRepository;
     private final HashtagJpaRepository hashtagJpaRepository;
+    private final BakeryJpaRepository bakeryJpaRepository;
     private final PictureUrlJpaRepository pictureUrlJpaRepository;
     private final CursorService cursorService;
 
@@ -43,6 +45,10 @@ public class DiaryQueryService {
         Diary diary = diaryJdbcRepository.findById(diaryid)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
 
+        String bakeryName = bakeryJpaRepository.findById(diary.getBakeryId())
+                .map(bakery -> bakery.getName())
+                .orElse(null);
+
         String nickname = memberJpaRepository.findById(diary.getMemberId())
                 .map(member -> member.getNickname())
                 .orElse(null);
@@ -55,6 +61,6 @@ public class DiaryQueryService {
                 .map(pictureUrl -> pictureUrl.getPic_url())
                 .collect(Collectors.toList());
 
-        return DiaryResponse.from(diary, nickname, hashtags, pictureUrls);
+        return DiaryResponse.from(diary, hashtags, pictureUrls, bakeryName, nickname);
     }
 }
