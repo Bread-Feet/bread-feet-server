@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/bakeries/recommendations")
+@RequestMapping("/api/v1/bakeries")
 public class BakeryRecommendationController {
 
     private final BakeryRecommendationService bakeryRecommendationService;
@@ -25,7 +25,7 @@ public class BakeryRecommendationController {
      *
      * <p>GET /api/v1/bakeries/recommendations
      */
-    @GetMapping
+    @GetMapping("/random")
     public ResponseEntity<ApiResponseWrapper<List<BakeryListResponse>>> getRecommendations(
             @RequestParam(defaultValue = "4") int size
     ) {
@@ -44,12 +44,13 @@ public class BakeryRecommendationController {
      * @param region 지역명 (도로명 주소 기준) — 예: 마포구, 강남구
      * @param size   반환할 빵집 수 (기본값 3)
      */
-    @GetMapping("/nearby")
+    @GetMapping("/recommendations/nearby")
     public ResponseEntity<ApiResponseWrapper<List<NearbyBakeryResponse>>> getNearbyRecommendations(
             @RequestParam String region,
             @RequestParam(defaultValue = "3") int size
     ) {
-        List<NearbyBakeryResponse> response = bakeryRecommendationService.getRegionalRecommendations(region, size);
+        List<NearbyBakeryResponse> response = bakeryRecommendationService.getRegionalRecommendations(
+                region, size);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
