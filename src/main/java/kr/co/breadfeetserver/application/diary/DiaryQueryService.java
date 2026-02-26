@@ -1,5 +1,8 @@
 package kr.co.breadfeetserver.application.diary;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import kr.co.breadfeetserver.application.support.CursorService;
@@ -44,6 +47,22 @@ public class DiaryQueryService {
     public DiaryResponse getDiary(Long diaryid, Long currentMemberId) {
         Diary diary = diaryJdbcRepository.findById(diaryid)
                 .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
+
+        return convertToResponse(diary);
+    }
+
+    public DiaryResponse getDiaryByDate(Long memberId, LocalDate date) {
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
+
+        Diary diary = diaryJdbcRepository.findByMemberIdAndVisitDateBetween(memberId, startOfDay, endOfDay)
+                .orElseThrow(() -> new BreadFeetBusinessException(ErrorCode.DIARY_NOT_FOUND));
+
+        return convertToResponse(diary);
+    }
+
+    private DiaryResponse convertToResponse(Diary diary) {
+        Long diaryid = diary.getId();
 
         String bakeryName = bakeryJpaRepository.findById(diary.getBakeryId())
                 .map(bakery -> bakery.getName())
