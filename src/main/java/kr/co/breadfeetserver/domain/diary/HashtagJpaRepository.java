@@ -10,7 +10,7 @@ import java.util.List;
 public interface HashtagJpaRepository extends JpaRepository<Hashtag, Long> {
     List<Hashtag> findAllByDiaryId(Long diaryId);
 
-    @Modifying(clearAutomatically = true)
+    @Modifying(clearAutomatically =  true)
     @Query("DELETE FROM Hashtag h WHERE h.diaryId = :diaryId")
     void deleteAllByDiaryId(Long diaryId);
 }
