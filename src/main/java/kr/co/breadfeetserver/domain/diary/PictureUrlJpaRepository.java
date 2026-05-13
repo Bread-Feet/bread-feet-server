@@ -10,7 +10,7 @@ import java.util.List;
 public interface PictureUrlJpaRepository extends JpaRepository<PictureUrl, Long> {
     List<PictureUrl> findAllByDiaryId(Long diaryId);
 
-    @Modifying
+    @Modifying(clearAutomatically = true)
     @Query("DELETE FROM PictureUrl p WHERE p.diaryId = :diaryId")
     void deleteAllByDiaryId(Long diaryId);
 }
